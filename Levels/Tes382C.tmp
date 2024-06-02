@@ -1,0 +1,113 @@
+[gd_scene load_steps=14 format=3 uid="uid://baf7ntlcbcmn8"]
+
+[ext_resource type="Texture2D" uid="uid://bld7u3tktdtk8" path="res://Assets/Textures/Prototype/orange_floor.png" id="1_7oi8w"]
+[ext_resource type="PackedScene" uid="uid://43anfrovcnqp" path="res://Player/Player.tscn" id="1_dluup"]
+[ext_resource type="Texture2D" uid="uid://dotj2ok7ih1ve" path="res://Assets/Textures/Prototype/dark_wall.png" id="2_067us"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ib0v5"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_7ynlc"]
+sky_material = SubResource("ProceduralSkyMaterial_ib0v5")
+
+[sub_resource type="Environment" id="Environment_0ih8l"]
+background_mode = 2
+sky = SubResource("Sky_7ynlc")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjfsw"]
+albedo_texture = ExtResource("1_7oi8w")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jr5jv"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l3dnm"]
+albedo_texture = ExtResource("2_067us")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4ua2f"]
+size = Vector3(50, 25, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7bsbq"]
+albedo_texture = ExtResource("2_067us")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2q1ki"]
+albedo_texture = ExtResource("2_067us")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qdhxn"]
+albedo_texture = ExtResource("2_067us")
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_0ih8l")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map/Floor"]
+size = Vector3(50, 1, 50)
+material = SubResource("StandardMaterial3D_yjfsw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Floor"]
+shape = SubResource("BoxShape3D_jr5jv")
+
+[node name="Wall" type="StaticBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 26)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 11, -1)
+size = Vector3(50, 25, 1)
+material = SubResource("StandardMaterial3D_l3dnm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+shape = SubResource("BoxShape3D_4ua2f")
+
+[node name="Wall2" type="StaticBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, -24)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+size = Vector3(50, 25, 1)
+material = SubResource("StandardMaterial3D_7bsbq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+shape = SubResource("BoxShape3D_4ua2f")
+
+[node name="Wall3" type="StaticBody3D" parent="Map"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 2, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+size = Vector3(50, 25, 1)
+material = SubResource("StandardMaterial3D_2q1ki")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+shape = SubResource("BoxShape3D_4ua2f")
+
+[node name="Wall4" type="StaticBody3D" parent="Map"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -26, 2, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+size = Vector3(50, 25, 1)
+material = SubResource("StandardMaterial3D_qdhxn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+shape = SubResource("BoxShape3D_4ua2f")
+
+[node name="Player" parent="." instance=ExtResource("1_dluup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
