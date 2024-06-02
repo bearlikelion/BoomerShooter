@@ -4,4 +4,4 @@
 
 [node name="Decal" type="Decal"]
 size = Vector3(0.1, 0.1, 0.1)
-texture_normal = ExtResource("1_vtnpn")
+texture_albedo = ExtResource("1_vtnpn")

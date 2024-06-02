@@ -22,12 +22,11 @@ func update(delta):
 	PLAYER.update_velocity()
 
 	if Input.is_action_just_pressed("attack"):
-		if WEAPON_DATA.has_ammo():
+		if !FPS_ARMS.is_reloading:
 			WEAPON_DATA.use()
-			# ARMS_VIEW.fire()
-		else:
-			# ARMS_VIEW.shake()
-			pass
+
+	if Input.is_action_just_pressed("reload"):
+		WEAPON_DATA.reload()
 
 
 func set_tilt(player_rotation) -> void:

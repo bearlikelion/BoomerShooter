@@ -32,11 +32,11 @@ func update(delta):
 			PLAYER.velocity.y = PLAYER.velocity.y / 2.0
 
 	if Input.is_action_just_pressed("attack"):
-		if WEAPON_DATA.has_ammo():
+		if !FPS_ARMS.is_reloading:
 			WEAPON_DATA.use()
-			ARMS_VIEW.fire()
-		else:
-			ARMS_VIEW.shake()
+
+	if Input.is_action_just_pressed("reload"):
+		WEAPON_DATA.reload()
 
 	if PLAYER.is_on_floor():
 		ANIMATION.play("player_animations/JumpEnd")

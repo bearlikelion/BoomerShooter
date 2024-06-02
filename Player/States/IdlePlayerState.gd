@@ -36,11 +36,9 @@ func update(delta):
 		#WEAPON._attack()
 
 	if Input.is_action_just_pressed("attack"):
-		if WEAPON_DATA.has_ammo():
+		if !FPS_ARMS.is_reloading:
 			WEAPON_DATA.use()
-			# ARMS_VIEW.fire()
-		else:
-			# ARMS_VIEW.shake()
-			#no_ammo.play()
-			pass
+
+	if Input.is_action_just_pressed("reload"):
+		WEAPON_DATA.reload()
 

@@ -52,13 +52,11 @@ func update(delta):
 		transition.emit("FallingPlayerState")
 
 	if Input.is_action_just_pressed("attack"):
-		if WEAPON_DATA.has_ammo():
+		if !FPS_ARMS.is_reloading:
 			WEAPON_DATA.use()
-			# ARMS_VIEW.fire()
-		else:
-			pass
-			# ARMS_VIEW.shake()
-			#no_ammo.play()
+
+	if Input.is_action_just_pressed("reload"):
+		WEAPON_DATA.reload()
 
 
 func set_animation_speed(spd):

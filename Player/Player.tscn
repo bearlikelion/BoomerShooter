@@ -24,8 +24,9 @@ material = SubResource("StandardMaterial3D_70tqx")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6f06g"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATIONPLAYER", "CAMERA_CONTROLLER")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("FPS_ARMS", "ANIMATIONPLAYER", "CAMERA_CONTROLLER")]
 script = ExtResource("1_qx042")
+FPS_ARMS = NodePath("CameraController/Recoil/Camera3D/WeaponRig/Arms/FPSArms")
 ANIMATIONPLAYER = NodePath("AnimationPlayer")
 CAMERA_CONTROLLER = NodePath("CameraController/Recoil/Camera3D")
 WEAPON_DATA = ExtResource("2_e2v0d")
@@ -114,10 +115,6 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_l3q5a")

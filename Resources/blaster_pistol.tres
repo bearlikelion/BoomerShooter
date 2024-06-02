@@ -7,3 +7,4 @@ script = ExtResource("1_cu70y")
 weapon_name = "Blaster Pistol"
 max_ammo = 6
 max_mag = 18
+fire_rate = 333

@@ -4,6 +4,7 @@ extends CharacterBody3D
 
 signal shoot(origin: Vector3, normal: Vector3, gun_end_position: Vector3)
 
+@export var FPS_ARMS: Node3D
 @export var MOUSE_SENSITIVITY: float = 0.33
 @export var TILT_LOWER_LIMIT: float = deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT: float = deg_to_rad(90.0)

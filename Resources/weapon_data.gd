@@ -1,15 +1,18 @@
 extends Resource
 class_name WeaponData
 
-@export var weapon_name = ""
-@export var max_ammo : int
-@export var max_mag : int
+@export var weapon_name: String = ""
+@export var max_ammo: int
+@export var max_mag: int
+@export var fire_rate: int
+
 var ammo : int
 var mag : int
 
 signal restored
 signal reloaded
 signal used
+signal empty
 
 
 func _init() -> void:
@@ -30,8 +33,11 @@ func should_reload() -> bool:
 
 
 func use() -> void:
-	ammo = max(0, ammo - 1)
-	used.emit()
+	if ammo > 0:
+		ammo = max(0, ammo - 1)
+		used.emit()
+	elif should_reload() or ammo <= 0:
+		empty.emit()
 
 
 func reload() -> void:

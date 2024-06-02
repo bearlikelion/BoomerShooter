@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://ck3qnvomiarpq"]
+[gd_scene load_steps=7 format=3 uid="uid://ck3qnvomiarpq"]
 
 [ext_resource type="Script" path="res://Scenes/Weapons/weapon.gd" id="1_52mt6"]
 [ext_resource type="PackedScene" uid="uid://d24ouxg548w8i" path="res://Assets/Models/Weapons/Blaster Pistol/blaster_pistol.glb" id="1_p73wa"]
 [ext_resource type="Resource" uid="uid://pcxtibfv1mmq" path="res://Resources/blaster_pistol.tres" id="2_qfjqq"]
 [ext_resource type="PackedScene" uid="uid://dr6b6ryyt0ni0" path="res://Scenes/Bullet.tscn" id="3_04bxc"]
+[ext_resource type="AudioStream" uid="uid://btbaljs5ry0rm" path="res://Assets/Sounds/258198__wadaltmon__thompson-smg-shot.wav" id="5_nyjcn"]
+[ext_resource type="AudioStream" uid="uid://b5gfcw8nao5dd" path="res://Assets/Sounds/621155__ktfreesound__reload-escopeta-m7.wav" id="6_brp34"]
 
 [node name="BlasterPistol" type="Node3D"]
 transform = Transform3D(-0.981746, 0.176319, 0.071312, 0.100744, 0.164058, 0.981293, 0.161322, 0.970565, -0.178827, 0.0178611, 0.0687821, 0.00456918)
@@ -20,5 +22,13 @@ layers = 2
 [node name="GunEnd" type="Marker3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 1.49012e-08, 1.11759e-08, 1.49012e-08, 1, 4.47035e-08, -1.86265e-08, -1.04308e-07, 1, -0.00595195, 0.012109, 0.167678)
+
+[node name="ShotSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_nyjcn")
+
+[node name="ReloadSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_brp34")
 
 [editable path="blaster_pistol"]
