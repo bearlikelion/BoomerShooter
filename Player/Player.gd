@@ -2,6 +2,8 @@ class_name Player
 
 extends CharacterBody3D
 
+signal shoot(origin: Vector3, normal: Vector3, gun_end_position: Vector3)
+
 @export var MOUSE_SENSITIVITY: float = 0.33
 @export var TILT_LOWER_LIMIT: float = deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT: float = deg_to_rad(90.0)
@@ -10,7 +12,7 @@ extends CharacterBody3D
 @export var WEAPON_CONTROLLER: WeaponController
 @export var ROLL_ANGLE: float = 0.65
 @export var ROLL_SPEED: int = 300
-
+@export var WEAPON_DATA: WeaponData = null
 
 var last_firing_time: int = 0
 
@@ -28,13 +30,12 @@ var _tilt_input: float
 # var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var gravity: float = 12.0
 
-@onready var arms_view = %ArmsView
-@onready var weapon_data = preload("res://Resources/blaster_pistol.tres")
+# @onready var arms_view = %ArmsView
 
 func _ready() -> void:
 	Global.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	arms_view.copy_pos_rot(CAMERA_CONTROLLER.global_position, CAMERA_CONTROLLER.rotation)
+	# arms_view.copy_pos_rot(CAMERA_CONTROLLER.global_position, CAMERA_CONTROLLER.rotation)
 	ANIMATIONPLAYER.play("player_animations/RESET")
 
 

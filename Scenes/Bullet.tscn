@@ -1,17 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://dr6b6ryyt0ni0"]
 
 [ext_resource type="Script" path="res://Scenes/Bullet.gd" id="1_5k5tv"]
-[ext_resource type="PackedScene" uid="uid://murq636k54ya" path="res://Assets/Models/Weapons/Ammo/foamBulletB.glb" id="1_do0fa"]
+[ext_resource type="PackedScene" uid="uid://b0l5tcs8qcbx2" path="res://Assets/Models/Weapons/Ammo/bullet.glb" id="2_2p455"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cocov"]
 radius = 0.01
 height = 0.07
 
 [node name="Bullet" type="Area3D"]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, 0)
 script = ExtResource("1_5k5tv")
 
-[node name="foamBulletB2" parent="." instance=ExtResource("1_do0fa")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.15, -0.15, 0)
+[node name="bullet" parent="." instance=ExtResource("2_2p455")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

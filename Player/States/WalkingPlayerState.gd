@@ -16,12 +16,12 @@ func enter(_previous_state) -> void:
 	else:
 		ANIMATION.play("player_animations/Walking", -1.0, 1.0)
 
-	ARMS_VIEW.is_walking = true
+	# ARMS_VIEW.is_walking = true
 
 
 func exit() -> void:
 	ANIMATION.speed_scale = 1.0
-	ARMS_VIEW.is_walking = true
+	# ARMS_VIEW.is_walking = true
 
 	#WEAPON.weapon_bob_amount = Vector2(0,0)
 
@@ -52,8 +52,13 @@ func update(delta):
 		transition.emit("FallingPlayerState")
 
 	if Input.is_action_just_pressed("attack"):
-		ARMS_VIEW.fire()
-		WEAPON._attack()
+		if WEAPON_DATA.has_ammo():
+			WEAPON_DATA.use()
+			# ARMS_VIEW.fire()
+		else:
+			pass
+			# ARMS_VIEW.shake()
+			#no_ammo.play()
 
 
 func set_animation_speed(spd):

@@ -16,12 +16,12 @@ func enter(_previous_state) -> void:
 	else:
 		ANIMATION.play("player_animations/Sprinting",0.5,1.0)
 
-	ARMS_VIEW.is_walking = true
+	# ARMS_VIEW.is_walking = true
 
 
 func exit() -> void:
 	ANIMATION.speed_scale = 1.0
-	ARMS_VIEW.is_walking = false
+	# ARMS_VIEW.is_walking = false
 	# WEAPON.weapon_bob_amount = Vector2(0,0)
 
 

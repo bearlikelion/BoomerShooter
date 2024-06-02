@@ -1,11 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://43anfrovcnqp"]
+[gd_scene load_steps=18 format=3 uid="uid://43anfrovcnqp"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_qx042"]
 [ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_673q6"]
+[ext_resource type="Resource" uid="uid://pcxtibfv1mmq" path="res://Resources/blaster_pistol.tres" id="2_e2v0d"]
 [ext_resource type="Script" path="res://Player/States/CrouchingPlayerState.gd" id="3_6wuiu"]
 [ext_resource type="Script" path="res://Player/States/IdlePlayerState.gd" id="3_57pxt"]
+[ext_resource type="PackedScene" uid="uid://bfds1jl6qnyxw" path="res://Player/fps_arms.tscn" id="3_i64jh"]
 [ext_resource type="Script" path="res://Player/States/WalkingPlayerState.gd" id="4_7ys4b"]
-[ext_resource type="PackedScene" uid="uid://b8i8vajkg00s0" path="res://Player/player_arms.tscn" id="5_0mymv"]
 [ext_resource type="Script" path="res://Player/States/FallingPlayerState.gd" id="5_pbjtd"]
 [ext_resource type="AnimationLibrary" uid="uid://c8okl8d142x" path="res://Player/player_animations.res" id="5_uuqds"]
 [ext_resource type="Script" path="res://Player/States/JumpingPlayerState.gd" id="6_18qtc"]
@@ -23,11 +24,11 @@ material = SubResource("StandardMaterial3D_70tqx")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6f06g"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATIONPLAYER", "CAMERA_CONTROLLER", "WEAPON_CONTROLLER")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATIONPLAYER", "CAMERA_CONTROLLER")]
 script = ExtResource("1_qx042")
 ANIMATIONPLAYER = NodePath("AnimationPlayer")
 CAMERA_CONTROLLER = NodePath("CameraController/Recoil/Camera3D")
-WEAPON_CONTROLLER = NodePath("ArmsView/SubViewport/Root/Arms/GunAnchor/WeaponController/BlasterPistol")
+WEAPON_DATA = ExtResource("2_e2v0d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -45,8 +46,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.33)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController/Recoil"]
 unique_name_in_owner = true
-cull_mask = 1048573
 fov = 90.0
+
+[node name="WeaponRig" type="Node3D" parent="CameraController/Recoil/Camera3D"]
+
+[node name="Arms" parent="CameraController/Recoil/Camera3D/WeaponRig" instance=ExtResource("3_i64jh")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.301148, 0.0638601)
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
@@ -54,9 +59,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("SphereShape3D_6f06g")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
-
-[node name="ArmsView" parent="." instance=ExtResource("5_0mymv")]
-unique_name_in_owner = true
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
 script = ExtResource("2_673q6")
@@ -80,6 +82,7 @@ DOUBLE_JUMP = true
 
 [node name="SlidingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_e33up")
+SPEED = 10.0
 
 [node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
 unique_name_in_owner = true

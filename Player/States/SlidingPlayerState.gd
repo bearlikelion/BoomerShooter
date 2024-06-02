@@ -21,6 +21,14 @@ func update(delta):
 #	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION) # Disable to maintain direction while sliding
 	PLAYER.update_velocity()
 
+	if Input.is_action_just_pressed("attack"):
+		if WEAPON_DATA.has_ammo():
+			WEAPON_DATA.use()
+			# ARMS_VIEW.fire()
+		else:
+			# ARMS_VIEW.shake()
+			pass
+
 
 func set_tilt(player_rotation) -> void:
 	var tilt = Vector3.ZERO

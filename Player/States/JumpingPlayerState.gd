@@ -31,6 +31,13 @@ func update(delta):
 		if PLAYER.velocity.y > 0:
 			PLAYER.velocity.y = PLAYER.velocity.y / 2.0
 
+	if Input.is_action_just_pressed("attack"):
+		if WEAPON_DATA.has_ammo():
+			WEAPON_DATA.use()
+			ARMS_VIEW.fire()
+		else:
+			ARMS_VIEW.shake()
+
 	if PLAYER.is_on_floor():
 		ANIMATION.play("player_animations/JumpEnd")
 		transition.emit("IdlePlayerState")

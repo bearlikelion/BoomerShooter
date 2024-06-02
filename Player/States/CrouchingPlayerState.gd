@@ -42,6 +42,13 @@ func update(delta):
 		RELEASED = true
 		uncrouch()
 
+	if Input.is_action_just_pressed("attack"):
+		if WEAPON_DATA.has_ammo():
+			WEAPON_DATA.use()
+			ARMS_VIEW.fire()
+		else:
+			ARMS_VIEW.shake()
+
 
 func uncrouch():
 	if CROUCH_SHAPECAST.is_colliding() == false:

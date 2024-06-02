@@ -12,7 +12,7 @@ func enter(_previous_state) -> void:
 
 
 func exit() -> void:
-	ARMS_VIEW.ground_impact()
+	# ARMS_VIEW.ground_impact()
 	DOUBLE_JUMP = false
 
 
