@@ -15,6 +15,10 @@ run/main_scene="res://Levels/TestLevel.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://Scripts/global.gd"
+
 [input]
 
 move_forward={

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ctds0c77patsw"
-path="res://.godot/imported/blasterC.glb-c29ffb2a5900de78c637f503a2e6892f.scn"
+uid="uid://d24ouxg548w8i"
+path="res://.godot/imported/blaster_pistol.glb-4b7b520c91f365f05cc97f7fcbd31aa0.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Weapons/Blaster Pistol/blasterC.glb"
-dest_files=["res://.godot/imported/blasterC.glb-c29ffb2a5900de78c637f503a2e6892f.scn"]
+source_file="res://Assets/Models/Weapons/Blaster Pistol/blaster_pistol.glb"
+dest_files=["res://.godot/imported/blaster_pistol.glb-4b7b520c91f365f05cc97f7fcbd31aa0.scn"]
 
 [params]
 
@@ -34,6 +34,18 @@ _subresources={
 "pink": {
 "use_external/enabled": true,
 "use_external/path": "res://Assets/Materials/shiny_red.tres"
+}
+},
+"meshes": {
+"blaster_pistol_Mesh blasterC": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://Scenes/Weapons/BlasterPistol/blaster_pistol.res"
 }
 }
 }

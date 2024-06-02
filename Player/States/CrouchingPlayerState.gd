@@ -18,7 +18,7 @@ func enter(previous_state) -> void:
 	if previous_state.name != "SlidingPlayerState":
 		ANIMATION.play("player_animations/Crouching", -1.0, CROUCH_SPEED)
 	elif previous_state.name == "SlidingPlayerState":
-		ANIMATION.current_animation = "Crouching"
+		ANIMATION.current_animation = "player_animations/Crouching"
 		ANIMATION.seek(1.0, true)
 
 

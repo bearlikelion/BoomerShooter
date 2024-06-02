@@ -1,10 +1,9 @@
-[gd_scene load_steps=35 format=3 uid="uid://b8i8vajkg00s0"]
+[gd_scene load_steps=34 format=3 uid="uid://b8i8vajkg00s0"]
 
 [ext_resource type="Script" path="res://Player/player_arms.gd" id="1_e15a3"]
-[ext_resource type="PackedScene" uid="uid://bjtyu40exg02k" path="res://Assets/small_laser_pistol.glb" id="2_1jmvq"]
 [ext_resource type="PackedScene" uid="uid://caf5c82qkytd0" path="res://Assets/fps_arms.glb" id="2_g8snw"]
 [ext_resource type="Material" uid="uid://dlnmdgy8fd47u" path="res://Player/materials/arms_mat.tres" id="3_jikf0"]
-[ext_resource type="PackedScene" uid="uid://ctds0c77patsw" path="res://Assets/Models/Weapons/Blaster Pistol/blasterC.glb" id="4_0tb7e"]
+[ext_resource type="PackedScene" uid="uid://k58nwti5i5p3" path="res://Scenes/Weapons/BlasterPistol/blaster_pistol.tscn" id="3_ns5cc"]
 [ext_resource type="AnimationLibrary" uid="uid://dw5ae8js8d8wi" path="res://Player/custom_animations/custom_library.res" id="5_6ipce"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvvvv"]
@@ -8577,36 +8576,20 @@ fov = 35.0
 far = 4.0
 
 [node name="GunAnchor" type="BoneAttachment3D" parent="SubViewport/Root/Arms"]
-transform = Transform3D(-0.99077, 0.0598635, 0.121621, 0.129513, 0.153154, 0.979679, 0.0400203, 0.986387, -0.159493, -0.195015, 0.055369, 0.473239)
+transform = Transform3D(-0.990302, 0.0604087, 0.125111, 0.133042, 0.15294, 0.979239, 0.0400201, 0.986387, -0.159494, -0.195009, 0.0616284, 0.473239)
 bone_name = "DEF-hand.R"
 bone_idx = 30
 use_external_skeleton = true
 external_skeleton = NodePath("../FPSArms/Rig/Skeleton3D")
 
-[node name="GunOffset" type="Node3D" parent="SubViewport/Root/Arms/GunAnchor"]
-transform = Transform3D(0.999919, -0.00215198, -0.013327, 0.00215938, 0.999983, 0.00052546, 0.0133259, -0.000554234, 0.999911, -0.0268133, 0.1451, 0.044416)
+[node name="WeaponController" type="Node3D" parent="SubViewport/Root/Arms/GunAnchor"]
+transform = Transform3D(1.00001, 0, 0, 0, 0.999986, 0, 0, 0, 1, -0.0268133, 0.1451, 0.044416)
 
-[node name="SmallLaserPistol" parent="SubViewport/Root/Arms/GunAnchor/GunOffset" instance=ExtResource("2_1jmvq")]
-transform = Transform3D(-1.10002, -0.00189927, -0.000307091, -0.000307355, 7.81268e-05, 1.09996, -0.00189936, 1.10002, -7.8246e-05, -0.000584006, -0.000715196, -0.0825668)
-visible = false
-
-[node name="GunMesh" parent="SubViewport/Root/Arms/GunAnchor/GunOffset/SmallLaserPistol" index="0"]
-transform = Transform3D(0.999438, -0.0332881, -0.00545133, 0.0332818, 0.999447, 0.00114904, 0.00537822, -0.00156185, 0.999965, -0.0053471, 0.0698096, -0.00145119)
-layers = 2
-
-[node name="blasterC2" parent="SubViewport/Root/Arms/GunAnchor/GunOffset" instance=ExtResource("4_0tb7e")]
-transform = Transform3D(-0.654346, 0.0750812, 0.0423548, 0.0497545, 0.0641317, 0.65499, 0.0703951, 0.652573, -0.0692419, -0.0727016, 0.195378, 0.024879)
-
-[node name="blasterC" parent="SubViewport/Root/Arms/GunAnchor/GunOffset/blasterC2/tmpParent" index="0"]
-transform = Transform3D(0.999998, 0.00201956, 0.000278428, -0.00201961, 0.999998, -0.000188544, -0.000278696, 0.000188619, 0.999999, -0.148604, -0.0302105, -0.154042)
-layers = 2
-
-[node name="GunEnd" type="Marker3D" parent="SubViewport/Root/Arms/GunAnchor/GunOffset"]
-unique_name_in_owner = true
-transform = Transform3D(0.999828, -0.0029231, -0.0181372, 0.00293675, 0.999995, 0.000709817, 0.0181357, -0.000761673, 0.999835, 0.0264744, 0.262452, 0.00244311)
+[node name="BlasterPistol" parent="SubViewport/Root/Arms/GunAnchor/WeaponController" instance=ExtResource("3_ns5cc")]
+transform = Transform3D(-0.652522, 0.0834932, 0.0533332, 0.066201, 0.103119, 0.648524, 0.0737086, 0.646526, -0.110325, 0.017, 0.044, 0.009)
 
 [node name="LoadAnchor" type="BoneAttachment3D" parent="SubViewport/Root/Arms"]
-transform = Transform3D(-0.996181, -0.0852736, -0.0187242, -0.00367515, -0.173315, 0.984859, -0.0872283, 0.981167, 0.172341, -0.112304, 0.0488916, 0.494804)
+transform = Transform3D(-0.996188, -0.0858915, -0.0152152, -0.000125691, -0.173013, 0.98492, -0.0872288, 0.981167, 0.172343, -0.119321, 0.0548122, 0.494803)
 visible = false
 bone_name = "DEF-hand.L"
 bone_idx = 5
@@ -8614,7 +8597,7 @@ use_external_skeleton = true
 external_skeleton = NodePath("../FPSArms/Rig/Skeleton3D")
 
 [node name="LoadOffset" type="Node3D" parent="SubViewport/Root/Arms/LoadAnchor"]
-transform = Transform3D(0.971291, 0.00781314, -0.237294, 0.0181434, 0.99406, 0.107048, 0.236663, -0.108274, 0.965676, 0.0748928, 0.119181, 0.0118056)
+transform = Transform3D(0.972994, 0.0057149, -0.23027, 0.0195617, 0.993996, 0.107383, 0.229446, -0.108981, 0.967338, 0.074786, 0.120175, 0.00608887)
 
 [node name="Ammo" type="MeshInstance3D" parent="SubViewport/Root/Arms/LoadAnchor/LoadOffset"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -8800,6 +8783,4 @@ parameters/ShakeShot/active = false
 parameters/ShakeShot/internal_active = false
 parameters/ShakeShot/request = 0
 
-[editable path="SubViewport/Root/Arms/GunAnchor/GunOffset/SmallLaserPistol"]
-[editable path="SubViewport/Root/Arms/GunAnchor/GunOffset/blasterC2"]
 [editable path="SubViewport/Root/Arms/FPSArms"]

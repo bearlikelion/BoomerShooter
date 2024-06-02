@@ -6,7 +6,7 @@ extends SubViewportContainer
 @onready var fps_arms = %FPSArms
 @onready var arms = %Arms
 @onready var root = %Root
-@onready var gun_end = %GunEnd
+# @onready var gun_end = %GunEnd
 
 @onready var previous_pos = Vector3.ZERO
 @onready var previous_rot = Vector3.ZERO

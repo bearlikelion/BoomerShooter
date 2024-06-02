@@ -34,3 +34,13 @@ func update(delta):
 
 	#if Input.is_action_just_pressed("attack"):
 		#WEAPON._attack()
+
+	if Input.is_action_just_pressed("attack"):
+		ARMS_VIEW.fire()
+		WEAPON._attack()
+		# if !weapon_data.has_ammo():
+			# ARMS_VIEW.shake()
+			#no_ammo.play()
+		# else:
+			# weapon_data.use()
+			# ARMS_VIEW.fire()

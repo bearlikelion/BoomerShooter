@@ -2,13 +2,17 @@ class_name Player
 
 extends CharacterBody3D
 
-@export var MOUSE_SENSITIVITY : float = 0.33
-@export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
-@export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
-@export var ANIMATIONPLAYER : AnimationPlayer
-@export var CAMERA_CONTROLLER : Camera3D
+@export var MOUSE_SENSITIVITY: float = 0.33
+@export var TILT_LOWER_LIMIT: float = deg_to_rad(-90.0)
+@export var TILT_UPPER_LIMIT: float = deg_to_rad(90.0)
+@export var ANIMATIONPLAYER: AnimationPlayer
+@export var CAMERA_CONTROLLER: Camera3D
+@export var WEAPON_CONTROLLER: WeaponController
 @export var ROLL_ANGLE: float = 0.65
 @export var ROLL_SPEED: int = 300
+
+
+var last_firing_time: int = 0
 
 var _mouse_input : bool = false
 
@@ -25,9 +29,10 @@ var _tilt_input: float
 var gravity: float = 12.0
 
 @onready var arms_view = %ArmsView
+@onready var weapon_data = preload("res://Resources/blaster_pistol.tres")
 
 func _ready() -> void:
-	# Global.player = self
+	Global.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	arms_view.copy_pos_rot(CAMERA_CONTROLLER.global_position, CAMERA_CONTROLLER.rotation)
 	ANIMATIONPLAYER.play("player_animations/RESET")
@@ -97,12 +102,13 @@ func update_velocity() -> void:
 
 
 # Returns a value for how much the Camera Mount should tilt to the side.
+# TODO Fix rotation side
 func _calc_roll(rollangle: float, rollspeed: float) -> float:
 	if rollangle == 0.0 or rollspeed == 0:
 		return 0
 
 	var side = velocity.dot(CAMERA_CONTROLLER.transform.basis.x)
-	print("Side: %s" % side)
+	# print("Side: %s" % side)
 	var roll_sign = 1.0 if side < 0.0 else -1.0
 	side = absf(side)
 

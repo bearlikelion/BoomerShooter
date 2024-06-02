@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://k58nwti5i5p3"]
+
+[ext_resource type="Script" path="res://Scripts/init_weapon.gd" id="1_7ex2o"]
+[ext_resource type="ArrayMesh" uid="uid://boo2ebslty6v7" path="res://Scenes/Weapons/BlasterPistol/blaster_pistol.res" id="1_gifpt"]
+[ext_resource type="Resource" uid="uid://bn2r7bayqbxe2" path="res://Scenes/Weapons/BlasterPistol/weapon_blaster_pistol.tres" id="2_xr2gb"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i3a3f"]
+noise_type = 3
+frequency = 0.0407
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qmyr0"]
+noise = SubResource("FastNoiseLite_i3a3f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vjcir"]
+angle_min = -73.0
+angle_max = 73.0
+direction = Vector3(-1, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+
+[node name="BlasterPistol" type="Node3D"]
+script = ExtResource("1_7ex2o")
+WEAPON_TYPE = ExtResource("2_xr2gb")
+sway_noise = SubResource("NoiseTexture2D_qmyr0")
+
+[node name="RecoilPosition" type="Node3D" parent="."]
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="RecoilPosition"]
+unique_name_in_owner = true
+layers = 2
+mesh = ExtResource("1_gifpt")
+
+[node name="WeaponShadow" type="MeshInstance3D" parent="RecoilPosition"]
+unique_name_in_owner = true
+visible = false
+layers = 2
+mesh = ExtResource("1_gifpt")
+
+[node name="MuzzleFlash" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.013626, 0.234612)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="MuzzleFlash"]
+emitting = false
+lifetime = 0.05
+one_shot = true
+explosiveness = 0.93
+process_material = SubResource("ParticleProcessMaterial_vjcir")

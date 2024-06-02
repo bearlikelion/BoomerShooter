@@ -5,7 +5,7 @@ extends State
 var PLAYER: Player
 var ANIMATION: AnimationPlayer
 var ARMS_VIEW: SubViewportContainer
-# var WEAPON: WeaponController
+var WEAPON: WeaponController
 
 
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _ready() -> void:
 	PLAYER = owner as Player
 	ANIMATION = PLAYER.ANIMATIONPLAYER
 	ARMS_VIEW = PLAYER.arms_view
-	# WEAPON = PLAYER.WEAPON_CONTROLLER
+	WEAPON = PLAYER.WEAPON_CONTROLLER
 
 
 func _process(_delta: float) -> void:

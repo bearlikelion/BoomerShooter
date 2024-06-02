@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Weapons" load_steps=3 format=3 uid="uid://bn2r7bayqbxe2"]
+
+[ext_resource type="ArrayMesh" uid="uid://boo2ebslty6v7" path="res://Scenes/Weapons/BlasterPistol/blaster_pistol.res" id="1_wygvi"]
+[ext_resource type="Script" path="res://Scenes/Weapons/weapons.gd" id="2_5iph4"]
+
+[resource]
+script = ExtResource("2_5iph4")
+name = &"Blaster Pistol"
+position = Vector3(0.017, 0.044, 0.009)
+rotation = Vector3(-79.3, 154.2, 32.7)
+scale = Vector3(0.66, 0.66, 0.66)
+sway_min = Vector2(-20, -20)
+sway_max = Vector2(20, 20)
+sway_speed_position = 0.07
+sway_speed_rotation = 0.1
+sway_amount_position = 0.1
+sway_amount_rotation = 30.0
+idle_sway_adjustment = 10.0
+idle_sway_rotation_strength = 300.0
+random_sway_amount = 5.0
+mesh = ExtResource("1_wygvi")
+shadow = false

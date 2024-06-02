@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ctds0c77patsw"
-path="res://.godot/imported/blasterC.glb-c29ffb2a5900de78c637f503a2e6892f.scn"
+uid="uid://b3td28xi78mvm"
+path="res://.godot/imported/foamBulletA.glb-77dbe025ea9bcfb1d0b2b2a13294a86f.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Weapons/Blaster Pistol/blasterC.glb"
-dest_files=["res://.godot/imported/blasterC.glb-c29ffb2a5900de78c637f503a2e6892f.scn"]
+source_file="res://Assets/Models/Weapons/Ammo/foamBulletA.glb"
+dest_files=["res://.godot/imported/foamBulletA.glb-77dbe025ea9bcfb1d0b2b2a13294a86f.scn"]
 
 [params]
 
@@ -29,13 +29,6 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={
-"materials": {
-"pink": {
-"use_external/enabled": true,
-"use_external/path": "res://Assets/Materials/shiny_red.tres"
-}
-}
-}
+_subresources={}
 gltf/naming_version=1
 gltf/embedded_image_handling=1

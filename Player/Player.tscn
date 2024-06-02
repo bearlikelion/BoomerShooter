@@ -23,10 +23,11 @@ material = SubResource("StandardMaterial3D_70tqx")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6f06g"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATIONPLAYER", "CAMERA_CONTROLLER")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("ANIMATIONPLAYER", "CAMERA_CONTROLLER", "WEAPON_CONTROLLER")]
 script = ExtResource("1_qx042")
 ANIMATIONPLAYER = NodePath("AnimationPlayer")
 CAMERA_CONTROLLER = NodePath("CameraController/Recoil/Camera3D")
+WEAPON_CONTROLLER = NodePath("ArmsView/SubViewport/Root/Arms/GunAnchor/WeaponController/BlasterPistol")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -37,7 +38,7 @@ visible = false
 mesh = SubResource("CapsuleMesh_w53lu")
 
 [node name="CameraController" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.997564, 0.0697565, 0, -0.0697565, 0.997564, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Recoil" type="Node3D" parent="CameraController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.33)
@@ -45,6 +46,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.33)
 [node name="Camera3D" type="Camera3D" parent="CameraController/Recoil"]
 unique_name_in_owner = true
 cull_mask = 1048573
+fov = 90.0
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
@@ -52,6 +54,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("SphereShape3D_6f06g")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="ArmsView" parent="." instance=ExtResource("5_0mymv")]
+unique_name_in_owner = true
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
 script = ExtResource("2_673q6")
@@ -89,9 +94,6 @@ SPEED = 6.0
 libraries = {
 "player_animations": ExtResource("5_uuqds")
 }
-
-[node name="ArmsView" parent="." instance=ExtResource("5_0mymv")]
-unique_name_in_owner = true
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

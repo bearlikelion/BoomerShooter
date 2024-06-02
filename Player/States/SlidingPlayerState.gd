@@ -11,9 +11,9 @@ class_name SlidingPlayerState extends PlayerMovementState
 
 func enter(_previous_state) -> void:
 	set_tilt(PLAYER._current_rotation)
-	ANIMATION.get_animation("Sliding").track_set_key_value(4,0,PLAYER.velocity.length())
+	ANIMATION.get_animation("player_animations/Sliding").track_set_key_value(4,0,PLAYER.velocity.length())
 	ANIMATION.speed_scale = 1.0
-	ANIMATION.play("Sliding", -1.0, SLIDE_ANIM_SPEED)
+	ANIMATION.play("player_animations/Sliding", -1.0, SLIDE_ANIM_SPEED)
 
 
 func update(delta):
@@ -27,8 +27,8 @@ func set_tilt(player_rotation) -> void:
 	tilt.z = clamp(TILT_AMOUNT * player_rotation, -0.1, 0.1)
 	if tilt.z == 0.0:
 		tilt.z = 0.05
-	ANIMATION.get_animation("Sliding").track_set_key_value(7,1,tilt)
-	ANIMATION.get_animation("Sliding").track_set_key_value(7,2,tilt)
+	ANIMATION.get_animation("player_animations/Sliding").track_set_key_value(7,1,tilt)
+	ANIMATION.get_animation("player_animations/Sliding").track_set_key_value(7,2,tilt)
 
 
 func finish():
