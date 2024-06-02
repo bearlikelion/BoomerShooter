@@ -8470,7 +8470,7 @@ fov = 35.0
 far = 4.0
 
 [node name="GunAnchor" type="BoneAttachment3D" parent="."]
-transform = Transform3D(-0.991305, 0.0592187, 0.117504, 0.12535, 0.153403, 0.980181, 0.0400195, 0.986388, -0.159492, -0.195022, 0.0551641, 0.473238)
+transform = Transform3D(-0.99077, 0.0598636, 0.121621, 0.129513, 0.153154, 0.979679, 0.0400204, 0.986388, -0.159494, -0.195015, 0.0553691, 0.473239)
 bone_name = "DEF-hand.R"
 bone_idx = 30
 use_external_skeleton = true
@@ -8482,7 +8482,7 @@ transform = Transform3D(1.00001, 0, 0, 0, 0.999986, 0, 0, 0, 1, -0.0268133, 0.14
 [node name="BlasterPistol" parent="GunAnchor/WeaponController" instance=ExtResource("1_mfnyu")]
 
 [node name="LoadAnchor" type="BoneAttachment3D" parent="."]
-transform = Transform3D(-0.996157, -0.0845446, -0.0228627, -0.00786123, -0.173673, 0.984772, -0.0872286, 0.981167, 0.172342, -0.112284, 0.0490348, 0.494804)
+transform = Transform3D(-0.996181, -0.0852734, -0.0187243, -0.00367515, -0.173316, 0.984859, -0.0872282, 0.981167, 0.172341, -0.112304, 0.0488916, 0.494804)
 visible = false
 bone_name = "DEF-hand.L"
 bone_idx = 5

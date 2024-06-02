@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw023i41m8v7o"]
+
+[ext_resource type="PackedScene" uid="uid://du11d47ug2djx" path="res://Assets/Models/Weapons/Handgun/handgun.glb" id="1_hxgve"]
+
+[node name="Handgun" type="Node3D"]
+
+[node name="handgun" parent="." instance=ExtResource("1_hxgve")]
+transform = Transform3D(0.66, 0, 0, 0, 0.66, 0, 0, 0, 0.66, 0, 0, 0)
