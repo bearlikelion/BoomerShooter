@@ -10,11 +10,11 @@ var bullet_hole = preload("res://Scenes/raycast_test.tscn")
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 
 func _ready() -> void:
+	await player.player_ready
 	weapon_data.used.connect(_on_weapon_used)
 	weapon_data.empty.connect(_on_weapon_empty)
 	weapon_data.reloaded.connect(_on_weapon_reloaded)
-
-	# player.set_weapon(weapon_data)
+	player.set_weapon(weapon_data)
 	# player.WEAPON_DATA = weapon_data
 
 
@@ -27,29 +27,29 @@ func _on_weapon_used() -> void:
 		%ShotSound.pitch_scale = randfn(1.0, 0.1)
 		%ShotSound.play()
 
-		var camera: Camera3D = Global.player.CAMERA_CONTROLLER
-		var space_state: PhysicsDirectSpaceState3D = camera.get_world_3d().direct_space_state
-		var screen_center: Vector2 = get_viewport().size / 2
-		var origin = camera.project_ray_origin(screen_center)
-		var end = origin + camera.project_ray_normal(screen_center) * 1000
+		var target: Object = player.aimcast.get_collider()
+		print("Target: %s" % target)
+		if target is PhysicalBone3D:
+			if target.name == "Head":
+				target.owner.take_damage()
+				target.owner.take_damage()
 
-		# Create Bullet Hole
-		var query = PhysicsRayQueryParameters3D.create(origin, end)
-		query.collide_with_bodies = true
-		var result = space_state.intersect_ray(query)
-		print("Result: %s" % str(result))
-		if result:
-			_bullet_hole(result.get("position"), result.get("normal"))
+			if target.owner.has_method("take_damage"):
+				target.owner.take_damage()
 
 		# Spawn Bullet Projectile
 		var bullet: Area3D = bullet_scene.instantiate()
 		bullet.transform = gun_end.global_transform
-		# bullet.end_position = result.get("position")
+		bullet.scale = Vector3(5, 5, 5)
 		bullet.velocity = bullet.transform.basis.z * bullet.muzzle_velocity
+		if target:
+			bullet.end_position = target.position # result.get("position")
 		bullet.exploded.connect(_on_bullet_exploded)
 		get_tree().root.add_child(bullet)
-		if result.has("position"):
-			bullet.look_at(result.get("position"))
+
+		# Create Bullet Hole
+		if target:
+			_bullet_hole(player.aimcast.get_collision_point(), player.aimcast.get_collision_normal())
 
 
 func get_gun_end_position() -> Vector3:

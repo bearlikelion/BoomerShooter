@@ -27,13 +27,8 @@ material = SubResource("StandardMaterial3D_70tqx")
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("FPS_ARMS", "ANIMATIONPLAYER", "CAMERA_CONTROLLER") groups=["player"]]
 script = ExtResource("1_qx042")
 FPS_ARMS = NodePath("CameraController/Recoil/Camera3D/WeaponRig/Arms/FPSArms")
-MOUSE_SENSITIVITY = null
-TILT_LOWER_LIMIT = null
-TILT_UPPER_LIMIT = null
 ANIMATIONPLAYER = NodePath("AnimationPlayer")
 CAMERA_CONTROLLER = NodePath("CameraController/Recoil/Camera3D")
-ROLL_ANGLE = null
-ROLL_SPEED = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -57,6 +52,12 @@ fov = 90.0
 
 [node name="Arms" parent="CameraController/Recoil/Camera3D/WeaponRig" instance=ExtResource("3_i64jh")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.301148, 0.0638601)
+
+[node name="AimCast" type="RayCast3D" parent="CameraController/Recoil/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+target_position = Vector3(0, 0, -500)
+collision_mask = 3
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true

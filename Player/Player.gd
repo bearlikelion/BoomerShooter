@@ -4,6 +4,7 @@ extends CharacterBody3D
 
 signal shoot(origin: Vector3, normal: Vector3, gun_end_position: Vector3)
 signal weapon_changed(weapon_data: WeaponData)
+signal player_ready
 
 @export var FPS_ARMS: Node3D
 @export var MOUSE_SENSITIVITY: float = 0.33
@@ -33,12 +34,15 @@ var _tilt_input: float
 var gravity: float = 12.0
 
 # @onready var arms_view = %ArmsView
+@onready var aimcast: RayCast3D = %AimCast
+
 
 func _ready() -> void:
 	Global.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# arms_view.copy_pos_rot(CAMERA_CONTROLLER.global_position, CAMERA_CONTROLLER.rotation)
 	ANIMATIONPLAYER.play("player_animations/RESET")
+	player_ready.emit()
 
 
 func _physics_process(delta: float) -> void:
@@ -89,8 +93,8 @@ func update_input(speed: float, acceleration: float, deceleration: float) -> voi
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	if direction:
-		velocity.x = lerp(velocity.x,direction.x * speed, acceleration)
-		velocity.z = lerp(velocity.z,direction.z * speed, acceleration)
+		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
+		velocity.z = lerp(velocity.z, direction.z * speed, acceleration)
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration)
 		velocity.z = move_toward(velocity.z, 0, deceleration)
@@ -125,6 +129,7 @@ func _calc_roll(rollangle: float, rollspeed: float) -> float:
 
 
 func set_weapon(weapon_data: WeaponData) -> void:
+	print("Weapon changed!")
 	WEAPON_DATA = weapon_data
 	weapon_changed.emit()
 

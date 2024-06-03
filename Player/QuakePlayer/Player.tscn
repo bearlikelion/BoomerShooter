@@ -19,5 +19,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 [node name="Camera" type="Camera3D" parent="Head"]
 fov = 90.0
 
-[node name="RocketLauncher" parent="." instance=ExtResource("2_vp0ru")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -0.4, 0)
+[node name="RocketLauncher" parent="Head/Camera" instance=ExtResource("2_vp0ru")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -1, 0)

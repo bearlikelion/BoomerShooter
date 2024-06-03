@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/beetle.glb-c381e97afbef9cc7a610b3e2c09b2817.s
 
 [params]
 
-nodes/root_type="Area3D"
+nodes/root_type="Node3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
