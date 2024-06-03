@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://baf7ntlcbcmn8"]
+[gd_scene load_steps=15 format=3 uid="uid://baf7ntlcbcmn8"]
 
 [ext_resource type="Texture2D" uid="uid://bld7u3tktdtk8" path="res://Assets/Textures/Prototype/orange_floor.png" id="1_7oi8w"]
-[ext_resource type="PackedScene" uid="uid://43anfrovcnqp" path="res://Player/Player.tscn" id="1_dluup"]
 [ext_resource type="Texture2D" uid="uid://dotj2ok7ih1ve" path="res://Assets/Textures/Prototype/dark_wall.png" id="2_067us"]
+[ext_resource type="PackedScene" uid="uid://dx5184jxv6hi3" path="res://Player/QuakePlayer/Player.tscn" id="3_l3llx"]
+[ext_resource type="PackedScene" uid="uid://c7qsvamep2fwb" path="res://Scenes/Enemies/Beetle/Beetle.tscn" id="4_8kymg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ib0v5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -109,5 +110,7 @@ material = SubResource("StandardMaterial3D_qdhxn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
 shape = SubResource("BoxShape3D_4ua2f")
 
-[node name="Player" parent="." instance=ExtResource("1_dluup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Player" parent="." instance=ExtResource("3_l3llx")]
+
+[node name="Beetle" parent="." instance=ExtResource("4_8kymg")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, -20, 0, 20)

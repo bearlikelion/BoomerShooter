@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_qx042"]
 [ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_673q6"]
-[ext_resource type="Resource" uid="uid://pcxtibfv1mmq" path="res://Resources/blaster_pistol.tres" id="2_e2v0d"]
 [ext_resource type="Script" path="res://Player/States/CrouchingPlayerState.gd" id="3_6wuiu"]
 [ext_resource type="Script" path="res://Player/States/IdlePlayerState.gd" id="3_57pxt"]
 [ext_resource type="PackedScene" uid="uid://bfds1jl6qnyxw" path="res://Player/fps_arms.tscn" id="3_i64jh"]
@@ -13,6 +12,7 @@
 [ext_resource type="Script" path="res://Player/States/SprintingPlayerState.gd" id="7_dky3r"]
 [ext_resource type="Script" path="res://Player/States/SlidingPlayerState.gd" id="8_e33up"]
 [ext_resource type="Script" path="res://Scripts/Reticle.gd" id="12_l3q5a"]
+[ext_resource type="Script" path="res://Scripts/AmmoCounter.gd" id="13_n1cxg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rlh3f"]
 
@@ -24,12 +24,16 @@ material = SubResource("StandardMaterial3D_70tqx")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6f06g"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("FPS_ARMS", "ANIMATIONPLAYER", "CAMERA_CONTROLLER")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("FPS_ARMS", "ANIMATIONPLAYER", "CAMERA_CONTROLLER") groups=["player"]]
 script = ExtResource("1_qx042")
 FPS_ARMS = NodePath("CameraController/Recoil/Camera3D/WeaponRig/Arms/FPSArms")
+MOUSE_SENSITIVITY = null
+TILT_LOWER_LIMIT = null
+TILT_UPPER_LIMIT = null
 ANIMATIONPLAYER = NodePath("AnimationPlayer")
 CAMERA_CONTROLLER = NodePath("CameraController/Recoil/Camera3D")
-WEAPON_DATA = ExtResource("2_e2v0d")
+ROLL_ANGLE = null
+ROLL_SPEED = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -108,8 +112,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Reticle" type="CenterContainer" parent="UI" node_paths=PackedStringArray("PLAYER_CONTROLLER")]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+
+[node name="Reticle" type="CenterContainer" parent="UI/CanvasLayer" node_paths=PackedStringArray("PLAYER_CONTROLLER")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -118,20 +123,39 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_l3q5a")
-PLAYER_CONTROLLER = NodePath("../..")
+PLAYER_CONTROLLER = NodePath("../../..")
 
-[node name="Top" type="Line2D" parent="UI/Reticle"]
+[node name="Top" type="Line2D" parent="UI/CanvasLayer/Reticle"]
 points = PackedVector2Array(0, -5, 0, -15)
 width = 2.0
 
-[node name="Right" type="Line2D" parent="UI/Reticle"]
+[node name="Right" type="Line2D" parent="UI/CanvasLayer/Reticle"]
 points = PackedVector2Array(5, 0, 15, 0)
 width = 2.0
 
-[node name="Bottom" type="Line2D" parent="UI/Reticle"]
+[node name="Bottom" type="Line2D" parent="UI/CanvasLayer/Reticle"]
 points = PackedVector2Array(0, 5, 0, 15)
 width = 2.0
 
-[node name="Left" type="Line2D" parent="UI/Reticle"]
+[node name="Left" type="Line2D" parent="UI/CanvasLayer/Reticle"]
 points = PackedVector2Array(-5, 0, -15, 0)
 width = 2.0
+
+[node name="AmmoCounter" type="HBoxContainer" parent="UI/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+size_flags_vertical = 8
+script = ExtResource("13_n1cxg")
+
+[node name="Ammo" type="Label" parent="UI/CanvasLayer/AmmoCounter"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="Magezine" type="Label" parent="UI/CanvasLayer/AmmoCounter"]
+unique_name_in_owner = true
+layout_mode = 2

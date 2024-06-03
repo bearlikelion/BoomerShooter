@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgh1by76upwoo"]
+
+[ext_resource type="PackedScene" uid="uid://cr56ne55imow6" path="res://Assets/Models/Weapons/RocketLauncher/rocket.glb" id="1_8yfcj"]
+
+[node name="Rocket" type="Node3D"]
+
+[node name="rocket2" parent="." instance=ExtResource("1_8yfcj")]

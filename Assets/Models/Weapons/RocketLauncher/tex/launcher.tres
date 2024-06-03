@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bsbyagborrayi"]
+
+[ext_resource type="Texture2D" uid="uid://beuc8h3tjyjq3" path="res://Assets/Models/Weapons/RocketLauncher/tex/launcher_diffuse.png" id="1_l2rll"]
+
+[resource]
+albedo_texture = ExtResource("1_l2rll")

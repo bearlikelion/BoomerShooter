@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0sxu87agdl2"]
+
+[ext_resource type="PackedScene" uid="uid://mp2858d7vk76" path="res://Assets/Models/Weapons/RocketLauncher/rocket_launcher.glb" id="1_6hukf"]
+[ext_resource type="Script" path="res://Scenes/Weapons/weapon.gd" id="1_d4okl"]
+[ext_resource type="Script" path="res://Resources/weapon_data.gd" id="2_goncv"]
+[ext_resource type="PackedScene" uid="uid://cgh1by76upwoo" path="res://Scenes/Weapons/RocketLauncher/Rocket.tscn" id="4_oeqmw"]
+
+[sub_resource type="Resource" id="Resource_juwqg"]
+script = ExtResource("2_goncv")
+weapon_name = "Rocket Launcher"
+max_ammo = 4
+max_mag = 5
+fire_rate = 3000
+automatic = false
+
+[node name="RocketLauncher" type="Node3D"]
+script = ExtResource("1_d4okl")
+weapon_data = SubResource("Resource_juwqg")
+
+[node name="rocket_launcher" parent="." instance=ExtResource("1_6hukf")]
+
+[node name="Rocket" parent="." instance=ExtResource("4_oeqmw")]
+visible = false
+
+[node name="GunEnd" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1521, 0, 0)

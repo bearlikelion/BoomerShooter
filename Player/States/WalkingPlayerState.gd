@@ -28,7 +28,7 @@ func exit() -> void:
 
 func update(delta):
 	PLAYER.update_gravity(delta)
-	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
+	PLAYER.update_input(SPEED, ACCELERATION, DECELERATION)
 	PLAYER.update_velocity()
 
 	#WEAPON.sway_weapon(delta, false)
@@ -51,8 +51,8 @@ func update(delta):
 	if PLAYER.velocity.y < -3.0 and !PLAYER.is_on_floor():
 		transition.emit("FallingPlayerState")
 
-	if Input.is_action_just_pressed("attack"):
-		if !FPS_ARMS.is_reloading:
+	if Input.is_action_pressed("attack"):
+		if PLAYER.can_fire():
 			WEAPON_DATA.use()
 
 	if Input.is_action_just_pressed("reload"):

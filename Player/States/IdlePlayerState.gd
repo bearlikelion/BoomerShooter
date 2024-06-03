@@ -35,8 +35,8 @@ func update(delta):
 	#if Input.is_action_just_pressed("attack"):
 		#WEAPON._attack()
 
-	if Input.is_action_just_pressed("attack"):
-		if !FPS_ARMS.is_reloading:
+	if Input.is_action_pressed("attack"):
+		if PLAYER.can_fire():
 			WEAPON_DATA.use()
 
 	if Input.is_action_just_pressed("reload"):

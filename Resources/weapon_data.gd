@@ -5,14 +5,16 @@ class_name WeaponData
 @export var max_ammo: int
 @export var max_mag: int
 @export var fire_rate: int
+@export var automatic: bool
 
-var ammo : int
-var mag : int
+var ammo: int
+var mag: int
 
 signal restored
 signal reloaded
 signal used
 signal empty
+signal weapon_ready
 
 
 func _init() -> void:
@@ -21,7 +23,8 @@ func _init() -> void:
 
 func ready() -> void:
 	ammo = max_ammo
-	mag = max_mag
+	mag = max_mag * max_ammo
+	weapon_ready.emit()
 
 
 func has_ammo() -> bool:
@@ -42,8 +45,8 @@ func use() -> void:
 
 func reload() -> void:
 	if mag == 0: return
+	mag = max(0, mag - (max_ammo - ammo))
 	ammo = max_ammo
-	mag = max(0, mag - 1)
 	reloaded.emit()
 
 

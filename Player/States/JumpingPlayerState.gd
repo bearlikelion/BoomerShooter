@@ -32,7 +32,7 @@ func update(delta):
 			PLAYER.velocity.y = PLAYER.velocity.y / 2.0
 
 	if Input.is_action_just_pressed("attack"):
-		if !FPS_ARMS.is_reloading:
+		if PLAYER.can_fire():
 			WEAPON_DATA.use()
 
 	if Input.is_action_just_pressed("reload"):

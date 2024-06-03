@@ -3,6 +3,7 @@ class_name Player
 extends CharacterBody3D
 
 signal shoot(origin: Vector3, normal: Vector3, gun_end_position: Vector3)
+signal weapon_changed(weapon_data: WeaponData)
 
 @export var FPS_ARMS: Node3D
 @export var MOUSE_SENSITIVITY: float = 0.33
@@ -121,3 +122,19 @@ func _calc_roll(rollangle: float, rollspeed: float) -> float:
 		side = value
 
 	return side * roll_sign
+
+
+func set_weapon(weapon_data: WeaponData) -> void:
+	WEAPON_DATA = weapon_data
+	weapon_changed.emit()
+
+
+func can_fire() -> bool:
+	if FPS_ARMS.is_reloading:
+		return false
+
+	var shoot_time_diff: int = Time.get_ticks_msec() - last_firing_time
+	if shoot_time_diff < WEAPON_DATA.fire_rate:
+		return false
+
+	return true

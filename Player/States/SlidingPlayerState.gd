@@ -21,8 +21,8 @@ func update(delta):
 #	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION) # Disable to maintain direction while sliding
 	PLAYER.update_velocity()
 
-	if Input.is_action_just_pressed("attack"):
-		if !FPS_ARMS.is_reloading:
+	if Input.is_action_pressed("attack"):
+		if PLAYER.can_fire():
 			WEAPON_DATA.use()
 
 	if Input.is_action_just_pressed("reload"):
