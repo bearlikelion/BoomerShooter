@@ -4,7 +4,10 @@ extends CharacterBody3D
 
 signal shoot(origin: Vector3, normal: Vector3, gun_end_position: Vector3)
 signal weapon_changed(weapon_data: WeaponData)
-signal player_ready
+signal player_hurt
+signal player_died
+signal enemy_killed
+signal kills_changed
 
 @export var FPS_ARMS: Node3D
 @export var MOUSE_SENSITIVITY: float = 0.33
@@ -16,9 +19,12 @@ signal player_ready
 @export var ROLL_SPEED: int = 300
 @export var WEAPON_DATA: WeaponData = null
 
+var health: int = 100
+var kills: int = 0
+
 var last_firing_time: int = 0
 
-var _mouse_input : bool = false
+var _mouse_input: bool = false
 var _camera_rotation: Vector3
 var _player_rotation: Vector3
 var _mouse_rotation: Vector3
@@ -31,16 +37,24 @@ var _tilt_input: float
 # var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var gravity: float = 12.0
 
+var been_hurt: bool = false
+var hurt_timer: Timer = Timer.new()
+
 @onready var aimcast: RayCast3D = %AimCast
 
 
 func _ready() -> void:
 	Global.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	# arms_view.copy_pos_rot(CAMERA_CONTROLLER.global_position, CAMERA_CONTROLLER.rotation)
-	ANIMATIONPLAYER.play("player_animations/RESET")
-	player_ready.emit()
 
+	enemy_killed.connect(_on_enemy_killed)
+
+	# Hurt Timer
+	hurt_timer.wait_time = 1.0
+	hurt_timer.autostart = true
+	hurt_timer.timeout.connect(_on_hurt_timer_timeout)
+	hurt_timer.name = "HurtTimer"
+	add_child(hurt_timer)
 
 func _physics_process(delta: float) -> void:
 	# Global.debug.add_property("Velocity","%.2f" % velocity.length(), 2)
@@ -142,7 +156,32 @@ func can_fire() -> bool:
 	return true
 
 
+func take_damage(damage: int) -> void:
+	if !been_hurt:
+		been_hurt = true
+		health -= damage
+
+		if !%OuchSound.playing:
+			%OuchSound.play()
+
+		if health < 0:
+			player_died.emit()
+		else:
+			player_hurt.emit()
+
+
 func _on_hurt_box_body_entered(body: Node3D) -> void:
 	if body.owner.is_in_group("enemy"):
-		print("Body name: %s" % body.name)
-		print("Body is enemy, player should take damage")
+		take_damage(body.owner.damage)
+		#print("Body name: %s" % body.name)
+		#print("Body is enemy, player should take damage")
+
+
+func _on_hurt_timer_timeout() -> void:
+	if been_hurt:
+		been_hurt = false
+
+
+func _on_enemy_killed() -> void:
+	kills += 1
+	kills_changed.emit()

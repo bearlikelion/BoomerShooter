@@ -10,7 +10,7 @@ var bullet_hole = preload("res://Scenes/raycast_test.tscn")
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 
 func _ready() -> void:
-	await player.player_ready
+	await owner.ready
 	weapon_data.used.connect(_on_weapon_used)
 	weapon_data.empty.connect(_on_weapon_empty)
 	weapon_data.reloaded.connect(_on_weapon_reloaded)
@@ -31,11 +31,11 @@ func _on_weapon_used() -> void:
 		# print("Target: %s" % target)
 		if target is PhysicalBone3D:
 			if target.name == "Head":
-				target.owner.take_damage()
-				target.owner.take_damage()
-
-			if target.owner.has_method("take_damage"):
-				target.owner.take_damage()
+				if target.owner.has_method("headshot"):
+					target.owner.headshot()
+			else:
+				if target.owner.has_method("take_damage"):
+					target.owner.take_damage()
 
 		# Spawn Bullet Projectile
 		var bullet: Area3D = bullet_scene.instantiate()

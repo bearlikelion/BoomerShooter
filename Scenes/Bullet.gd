@@ -20,5 +20,6 @@ func _on_body_entered(_body: Node3D) -> void:
 	# queue_free()
 
 
-func _on_area_entered(area: Area3D) -> void:
-	print("Bullet area entered: %s" % area.name)
+func _on_area_entered(_area: Area3D) -> void:
+	pass
+	# print("Bullet area entered: %s" % area.name)

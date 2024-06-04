@@ -6,6 +6,7 @@ signal chase_player
 signal spawn_ammo(ammo_position: Vector3)
 
 @export var health: int = 2
+@export var damage: int = 10
 @export var speed = 150
 @export var skeleton: Skeleton3D
 @export var animation_player: AnimationPlayer
@@ -25,16 +26,24 @@ func _process(_delta: float) -> void:
 	pass
 
 
+func headshot() -> void:
+	health = 0
+	handle_damage()
+
+
 func take_damage() -> void:
 	health -= 1
-	# print("Took damage! HP: %s" % health)
+	handle_damage()
 
+
+func handle_damage() -> void:
 	if health <= 0:
 		var roll = randi_range(1, 100)
-		if roll <= 15:
+		if roll <= 5:
 			spawn_ammo.emit(position)
 
 		skeleton.physical_bones_start_simulation()
+		player.enemy_killed.emit()
 		await get_tree().create_timer(1.0).timeout
 		queue_free()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://43anfrovcnqp"]
+[gd_scene load_steps=26 format=3 uid="uid://43anfrovcnqp"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_qx042"]
 [ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_673q6"]
@@ -11,8 +11,13 @@
 [ext_resource type="Script" path="res://Player/States/JumpingPlayerState.gd" id="6_18qtc"]
 [ext_resource type="Script" path="res://Player/States/SprintingPlayerState.gd" id="7_dky3r"]
 [ext_resource type="Script" path="res://Player/States/SlidingPlayerState.gd" id="8_e33up"]
+[ext_resource type="FontFile" uid="uid://cvuv318jmwidu" path="res://Assets/Fonts/Geizer.otf" id="12_6kjly"]
+[ext_resource type="Script" path="res://Scripts/Player/HP.gd" id="12_cu6pu"]
 [ext_resource type="Script" path="res://Scripts/Reticle.gd" id="12_l3q5a"]
+[ext_resource type="Script" path="res://Scripts/UI.gd" id="12_yp5at"]
 [ext_resource type="Script" path="res://Scripts/AmmoCounter.gd" id="13_n1cxg"]
+[ext_resource type="Script" path="res://Scripts/Player/Kills.gd" id="15_k4xnt"]
+[ext_resource type="AudioStream" uid="uid://b0yyh0jgbjgq0" path="res://Assets/Sounds/SFX/163441__under7dude__man-getting-hit.wav" id="18_jed4w"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rlh3f"]
 
@@ -26,6 +31,16 @@ material = SubResource("StandardMaterial3D_70tqx")
 radius = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6f06g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_opodr"]
+font_size = 48
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nxwgr"]
+font_size = 48
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("FPS_ARMS", "ANIMATIONPLAYER", "CAMERA_CONTROLLER") groups=["player"]]
 script = ExtResource("1_qx042")
@@ -121,10 +136,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+script = ExtResource("12_yp5at")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+[node name="UILayer" type="CanvasLayer" parent="UI"]
 
-[node name="Reticle" type="CenterContainer" parent="UI/CanvasLayer" node_paths=PackedStringArray("PLAYER_CONTROLLER")]
+[node name="HP" type="Label" parent="UI/UILayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -44.0
+offset_right = 44.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("12_6kjly")
+theme_override_font_sizes/font_size = 48
+text = "Health: 100"
+label_settings = SubResource("LabelSettings_opodr")
+horizontal_alignment = 1
+script = ExtResource("12_cu6pu")
+
+[node name="Kills" type="Label" parent="UI/UILayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -182.0
+offset_bottom = 41.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("12_6kjly")
+theme_override_font_sizes/font_size = 48
+text = "KILLS: 0"
+label_settings = SubResource("LabelSettings_opodr")
+horizontal_alignment = 2
+script = ExtResource("15_k4xnt")
+
+[node name="Reticle" type="CenterContainer" parent="UI/UILayer" node_paths=PackedStringArray("PLAYER_CONTROLLER")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -135,23 +180,23 @@ grow_vertical = 2
 script = ExtResource("12_l3q5a")
 PLAYER_CONTROLLER = NodePath("../../..")
 
-[node name="Top" type="Line2D" parent="UI/CanvasLayer/Reticle"]
+[node name="Top" type="Line2D" parent="UI/UILayer/Reticle"]
 points = PackedVector2Array(0, -5, 0, -15)
 width = 2.0
 
-[node name="Right" type="Line2D" parent="UI/CanvasLayer/Reticle"]
+[node name="Right" type="Line2D" parent="UI/UILayer/Reticle"]
 points = PackedVector2Array(5, 0, 15, 0)
 width = 2.0
 
-[node name="Bottom" type="Line2D" parent="UI/CanvasLayer/Reticle"]
+[node name="Bottom" type="Line2D" parent="UI/UILayer/Reticle"]
 points = PackedVector2Array(0, 5, 0, 15)
 width = 2.0
 
-[node name="Left" type="Line2D" parent="UI/CanvasLayer/Reticle"]
+[node name="Left" type="Line2D" parent="UI/UILayer/Reticle"]
 points = PackedVector2Array(-5, 0, -15, 0)
 width = 2.0
 
-[node name="AmmoCounter" type="HBoxContainer" parent="UI/CanvasLayer"]
+[node name="AmmoCounter" type="HBoxContainer" parent="UI/UILayer"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -161,13 +206,80 @@ grow_vertical = 0
 size_flags_vertical = 8
 script = ExtResource("13_n1cxg")
 
-[node name="Ammo" type="Label" parent="UI/CanvasLayer/AmmoCounter"]
-unique_name_in_owner = true
+[node name="AmmoLabel" type="Label" parent="UI/UILayer/AmmoCounter"]
 layout_mode = 2
-text = "0"
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("12_6kjly")
+theme_override_font_sizes/font_size = 48
+text = "AMMO:"
+label_settings = SubResource("LabelSettings_nxwgr")
 
-[node name="Magezine" type="Label" parent="UI/CanvasLayer/AmmoCounter"]
+[node name="Ammo" type="Label" parent="UI/UILayer/AmmoCounter"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("12_6kjly")
+theme_override_font_sizes/font_size = 48
+text = "0"
+label_settings = SubResource("LabelSettings_nxwgr")
+
+[node name="Slash" type="Label" parent="UI/UILayer/AmmoCounter"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("12_6kjly")
+theme_override_font_sizes/font_size = 48
+text = "/"
+label_settings = SubResource("LabelSettings_nxwgr")
+
+[node name="Magezine" type="Label" parent="UI/UILayer/AmmoCounter"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("12_6kjly")
+theme_override_font_sizes/font_size = 48
+text = "18
+"
+label_settings = SubResource("LabelSettings_nxwgr")
+
+[node name="GameOverLayer" type="CanvasLayer" parent="UI"]
+unique_name_in_owner = true
+process_mode = 3
+layer = 2
+
+[node name="Panel" type="Panel" parent="UI/GameOverLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameOverLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/GameOverLayer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("12_6kjly")
+theme_override_font_sizes/font_size = 120
+text = "GAME OVER"
+
+[node name="Restart" type="Button" parent="UI/GameOverLayer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("12_6kjly")
+theme_override_font_sizes/font_size = 48
+text = "RESTART"
+
+[node name="OuchSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("18_jed4w")
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="pressed" from="UI/GameOverLayer/Panel/VBoxContainer/Restart" to="UI" method="_on_restart_pressed"]

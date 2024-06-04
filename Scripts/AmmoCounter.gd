@@ -12,7 +12,7 @@ func _ready():
 	weapon_data = weapon.weapon_data
 	await weapon_data.weapon_ready
 	ammo.text = str(weapon_data.ammo)
-	mag_count.text = "x %s" % str(weapon_data.mag)
+	mag_count.text = "%s" % str(weapon_data.mag)
 	weapon_data.connect("used", on_ammo_used)
 	weapon_data.connect("reloaded", on_ammo_reloaded)
 	weapon_data.connect("restored", on_ammo_reloaded)
@@ -24,4 +24,4 @@ func on_ammo_used():
 
 func on_ammo_reloaded():
 	ammo.text = str(weapon_data.ammo)
-	mag_count.text = "x %s" % str(weapon_data.mag)
+	mag_count.text = "%s" % str(weapon_data.mag)
