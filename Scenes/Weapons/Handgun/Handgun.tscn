@@ -13,9 +13,9 @@ weapon_name = "Handgun"
 max_ammo = 6
 max_mag = 3
 fire_rate = 500
-automatic = false
 
 [node name="Handgun" type="Node3D" groups=["weapon"]]
+transform = Transform3D(-0.986771, 0.144558, 0.0733869, 0.0945756, 0.145634, 0.984808, 0.131674, 0.97872, -0.157379, 0.0247069, 0.00567973, 0.0413213)
 script = ExtResource("1_vu752")
 weapon_data = SubResource("Resource_v2rtf")
 bullet_scene = ExtResource("3_byrow")

@@ -4,6 +4,7 @@ extends CharacterBody3D
 
 signal shoot(origin: Vector3, normal: Vector3, gun_end_position: Vector3)
 signal weapon_changed(weapon_data: WeaponData)
+signal player_ready
 signal player_hurt
 signal player_died
 signal enemy_killed
@@ -55,6 +56,8 @@ func _ready() -> void:
 	hurt_timer.timeout.connect(_on_hurt_timer_timeout)
 	hurt_timer.name = "HurtTimer"
 	add_child(hurt_timer)
+
+	player_ready.emit()
 
 func _physics_process(delta: float) -> void:
 	# Global.debug.add_property("Velocity","%.2f" % velocity.length(), 2)
@@ -140,7 +143,7 @@ func _calc_roll(rollangle: float, rollspeed: float) -> float:
 
 
 func set_weapon(weapon_data: WeaponData) -> void:
-	print("Weapon changed!")
+	print("Weapon changed! %s" % str(weapon_data))
 	WEAPON_DATA = weapon_data
 	weapon_changed.emit()
 
@@ -164,7 +167,7 @@ func take_damage(damage: int) -> void:
 		if !%OuchSound.playing:
 			%OuchSound.play()
 
-		if health < 0:
+		if health <= 0:
 			player_died.emit()
 		else:
 			player_hurt.emit()

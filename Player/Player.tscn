@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://43anfrovcnqp"]
+[gd_scene load_steps=27 format=3 uid="uid://43anfrovcnqp"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_qx042"]
 [ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_673q6"]
+[ext_resource type="Script" path="res://Scripts/Recoil.gd" id="2_v2qtf"]
 [ext_resource type="Script" path="res://Player/States/CrouchingPlayerState.gd" id="3_6wuiu"]
 [ext_resource type="Script" path="res://Player/States/IdlePlayerState.gd" id="3_57pxt"]
 [ext_resource type="PackedScene" uid="uid://bfds1jl6qnyxw" path="res://Player/fps_arms.tscn" id="3_i64jh"]
@@ -69,6 +70,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348306, 1.53886, 0)
 
 [node name="Recoil" type="Node3D" parent="CameraController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.33)
+script = ExtResource("2_v2qtf")
+recoil_amount = Vector3(0.15, 0.005, 0)
+snap_amount = 8.0
+speed = 4.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraController/Recoil"]
 unique_name_in_owner = true

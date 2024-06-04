@@ -39,10 +39,16 @@ func take_damage() -> void:
 func handle_damage() -> void:
 	if health <= 0:
 		var roll = randi_range(1, 100)
-		if roll <= 5:
+		if roll <= 20:
 			spawn_ammo.emit(position)
 
 		skeleton.physical_bones_start_simulation()
+
+		# Stop enemy collision
+		for bone: Node3D in skeleton.get_children():
+			if bone is PhysicalBone3D:
+				bone.set_collision_layer_value(2, false)
+
 		player.enemy_killed.emit()
 		await get_tree().create_timer(1.0).timeout
 		queue_free()

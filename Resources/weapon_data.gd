@@ -5,7 +5,6 @@ class_name WeaponData
 @export var max_ammo: int
 @export var max_mag: int
 @export var fire_rate: int
-@export var automatic: bool
 
 var ammo: int
 var mag: int
@@ -22,8 +21,7 @@ func _init() -> void:
 
 
 func ready() -> void:
-	ammo = max_ammo
-	mag = max_mag * max_ammo
+	reset()
 	weapon_ready.emit()
 
 
@@ -54,3 +52,8 @@ func restore() -> void:
 	# ammo = max_ammo
 	mag += max_ammo
 	restored.emit()
+
+
+func reset() -> void:
+	ammo = max_ammo
+	mag = max_mag * max_ammo

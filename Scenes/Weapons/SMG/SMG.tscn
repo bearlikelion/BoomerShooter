@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgmyr4l0e35ra"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/weapon.gd" id="1_e0836"]
+[ext_resource type="Script" path="res://Resources/weapon_data.gd" id="2_tfchl"]
+[ext_resource type="PackedScene" uid="uid://dr6b6ryyt0ni0" path="res://Scenes/Bullet.tscn" id="3_vmf1l"]
+[ext_resource type="AudioStream" uid="uid://pm07vufsa2ef" path="res://Assets/Sounds/SFX/345448__artmasterrich__laserfire_02.wav" id="5_28d8b"]
+[ext_resource type="PackedScene" uid="uid://bfau1xbvqcxp5" path="res://Assets/Models/Weapons/SMG/SMG.glb" id="5_hetey"]
+[ext_resource type="AudioStream" uid="uid://b5gfcw8nao5dd" path="res://Assets/Sounds/SFX/621155__ktfreesound__reload-escopeta-m7.wav" id="6_gmnuw"]
+
+[sub_resource type="Resource" id="Resource_v2rtf"]
+script = ExtResource("2_tfchl")
+weapon_name = "SMG"
+max_ammo = 18
+max_mag = 4
+fire_rate = 120
+
+[node name="SMG" type="Node3D" groups=["weapon"]]
+transform = Transform3D(-0.986771, 0.144558, 0.0733869, 0.0945756, 0.145634, 0.984808, 0.131674, 0.97872, -0.157379, 0.0248404, 0.00755084, 0.040623)
+script = ExtResource("1_e0836")
+weapon_data = SubResource("Resource_v2rtf")
+bullet_scene = ExtResource("3_vmf1l")
+
+[node name="SMG" parent="." instance=ExtResource("5_hetey")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="GunEnd" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.071718, 0.253359)
+
+[node name="ShotSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_28d8b")
+
+[node name="ReloadSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_gmnuw")
