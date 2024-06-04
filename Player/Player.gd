@@ -12,7 +12,6 @@ signal player_ready
 @export var TILT_UPPER_LIMIT: float = deg_to_rad(90.0)
 @export var ANIMATIONPLAYER: AnimationPlayer
 @export var CAMERA_CONTROLLER: Camera3D
-@export var WEAPON_CONTROLLER: WeaponController
 @export var ROLL_ANGLE: float = 0.65
 @export var ROLL_SPEED: int = 300
 @export var WEAPON_DATA: WeaponData = null
@@ -20,7 +19,6 @@ signal player_ready
 var last_firing_time: int = 0
 
 var _mouse_input : bool = false
-
 var _camera_rotation: Vector3
 var _player_rotation: Vector3
 var _mouse_rotation: Vector3
@@ -33,7 +31,6 @@ var _tilt_input: float
 # var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var gravity: float = 12.0
 
-# @onready var arms_view = %ArmsView
 @onready var aimcast: RayCast3D = %AimCast
 
 
@@ -143,3 +140,9 @@ func can_fire() -> bool:
 		return false
 
 	return true
+
+
+func _on_hurt_box_body_entered(body: Node3D) -> void:
+	if body.owner.is_in_group("enemy"):
+		print("Body name: %s" % body.name)
+		print("Body is enemy, player should take damage")

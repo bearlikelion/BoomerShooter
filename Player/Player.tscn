@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://43anfrovcnqp"]
+[gd_scene load_steps=19 format=3 uid="uid://43anfrovcnqp"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_qx042"]
 [ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_673q6"]
@@ -22,6 +22,9 @@ albedo_color = Color(0, 1, 0, 1)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_w53lu"]
 material = SubResource("StandardMaterial3D_70tqx")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_b3j0p"]
+radius = 1.0
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_6f06g"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("FPS_ARMS", "ANIMATIONPLAYER", "CAMERA_CONTROLLER") groups=["player"]]
@@ -38,15 +41,22 @@ shape = SubResource("CapsuleShape3D_rlh3f")
 visible = false
 mesh = SubResource("CapsuleMesh_w53lu")
 
+[node name="HurtBox" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_b3j0p")
+
 [node name="CameraController" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348306, 1.53886, 0)
 
 [node name="Recoil" type="Node3D" parent="CameraController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.33)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController/Recoil"]
 unique_name_in_owner = true
-fov = 90.0
 
 [node name="WeaponRig" type="Node3D" parent="CameraController/Recoil/Camera3D"]
 
@@ -61,7 +71,7 @@ collision_mask = 3
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_6f06g")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
@@ -88,7 +98,6 @@ DOUBLE_JUMP = true
 
 [node name="SlidingPlayerState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_e33up")
-SPEED = 10.0
 
 [node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine"]
 unique_name_in_owner = true
@@ -160,3 +169,5 @@ text = "0"
 [node name="Magezine" type="Label" parent="UI/CanvasLayer/AmmoCounter"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

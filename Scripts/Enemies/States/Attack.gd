@@ -1,15 +1,15 @@
-class_name Chase extends EnemyState
+class_name Attack extends EnemyState
 
 
 func _ready() -> void:
 	super()
 	await owner.ready
-	ENEMY.attack_player.connect(_on_attack_player)
+	ENEMY.chase_player.connect(_on_chase_player)
 	ANIMATION.animation_finished.connect(_on_animation_finished)
 
 
 func enter(_previous_state) -> void:
-	ANIMATION.play("Run1")
+	ANIMATION.play("Hover_Attack1")
 
 
 func exit() -> void:
@@ -30,11 +30,11 @@ func physics_update(delta: float) -> void:
 
 
 func _on_animation_finished(anim_name: String) -> void:
-	if anim_name == "Run1":
-		ANIMATION.play("Run2")
-	elif anim_name == "Run2":
-		ANIMATION.play("Run1")
+	if anim_name == "Hover_Attack1":
+		ANIMATION.play("Hover_Attack2")
+	elif anim_name == "Hover_Attack2":
+		ANIMATION.play("Hover_Attack1")
 
 
-func _on_attack_player() -> void:
-	transition.emit("Attack")
+func _on_chase_player() -> void:
+	transition.emit("Chase")

@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://Scenes/Weapons/weapon.gd" id="1_vu752"]
 [ext_resource type="Script" path="res://Resources/weapon_data.gd" id="2_gosbd"]
 [ext_resource type="PackedScene" uid="uid://dr6b6ryyt0ni0" path="res://Scenes/Bullet.tscn" id="3_byrow"]
-[ext_resource type="AudioStream" uid="uid://pm07vufsa2ef" path="res://Assets/Sounds/345448__artmasterrich__laserfire_02.wav" id="5_ypo0q"]
-[ext_resource type="AudioStream" uid="uid://b5gfcw8nao5dd" path="res://Assets/Sounds/621155__ktfreesound__reload-escopeta-m7.wav" id="6_8xmi5"]
+[ext_resource type="AudioStream" uid="uid://pm07vufsa2ef" path="res://Assets/Sounds/SFX/345448__artmasterrich__laserfire_02.wav" id="5_i1tjs"]
+[ext_resource type="AudioStream" uid="uid://b5gfcw8nao5dd" path="res://Assets/Sounds/SFX/621155__ktfreesound__reload-escopeta-m7.wav" id="6_87jdb"]
 
 [sub_resource type="Resource" id="Resource_v2rtf"]
 script = ExtResource("2_gosbd")
@@ -29,8 +29,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0676002, 0.378714)
 
 [node name="ShotSound" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("5_ypo0q")
+stream = ExtResource("5_i1tjs")
 
 [node name="ReloadSound" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("6_8xmi5")
+stream = ExtResource("6_87jdb")

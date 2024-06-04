@@ -28,7 +28,7 @@ func _on_weapon_used() -> void:
 		%ShotSound.play()
 
 		var target: Object = player.aimcast.get_collider()
-		print("Target: %s" % target)
+		# print("Target: %s" % target)
 		if target is PhysicalBone3D:
 			if target.name == "Head":
 				target.owner.take_damage()

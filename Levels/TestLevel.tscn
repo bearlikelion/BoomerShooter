@@ -1,13 +1,30 @@
-[gd_scene load_steps=15 format=3 uid="uid://baf7ntlcbcmn8"]
+[gd_scene load_steps=22 format=3 uid="uid://baf7ntlcbcmn8"]
 
 [ext_resource type="Texture2D" uid="uid://bld7u3tktdtk8" path="res://Assets/Textures/Prototype/orange_floor.png" id="1_7oi8w"]
+[ext_resource type="AudioStream" uid="uid://brwl1aayv62n5" path="res://Assets/Sounds/Music/Marksmans_Mayhem.ogg" id="1_p5xav"]
 [ext_resource type="Texture2D" uid="uid://dotj2ok7ih1ve" path="res://Assets/Textures/Prototype/dark_wall.png" id="2_067us"]
+[ext_resource type="Script" path="res://Scripts/SpawnManager.gd" id="3_06owu"]
 [ext_resource type="PackedScene" uid="uid://c7qsvamep2fwb" path="res://Scenes/Enemies/Beetle/Beetle.tscn" id="4_8kymg"]
 [ext_resource type="PackedScene" uid="uid://43anfrovcnqp" path="res://Player/Player.tscn" id="4_a4cd6"]
+[ext_resource type="PackedScene" uid="uid://6flrdeusbusq" path="res://Scenes/Pickups/ammo_pickup.tscn" id="5_q1gch"]
+
+[sub_resource type="Gradient" id="Gradient_m7n3u"]
+colors = PackedColorArray(0.235294, 0.0784314, 0.00784314, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d2lpi"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_h8o1b"]
+in_3d_space = true
+seamless = true
+color_ramp = SubResource("Gradient_m7n3u")
+noise = SubResource("FastNoiseLite_d2lpi")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ib0v5"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_top_color = Color(0.913725, 0.435294, 0.105882, 1)
+sky_horizon_color = Color(0.792157, 0.603922, 0.341176, 1)
+sky_cover = SubResource("NoiseTexture2D_h8o1b")
+ground_bottom_color = Color(0.192157, 0.168627, 0.141176, 1)
+ground_horizon_color = Color(0.235294, 0.0784314, 0.00784314, 1)
 
 [sub_resource type="Sky" id="Sky_7ynlc"]
 sky_material = SubResource("ProceduralSkyMaterial_ib0v5")
@@ -28,7 +45,7 @@ size = Vector3(50, 1, 50)
 albedo_texture = ExtResource("2_067us")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4ua2f"]
-size = Vector3(50, 25, 1)
+size = Vector3(50, 13, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7bsbq"]
 albedo_texture = ExtResource("2_067us")
@@ -39,7 +56,16 @@ albedo_texture = ExtResource("2_067us")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qdhxn"]
 albedo_texture = ExtResource("2_067us")
 
+[sub_resource type="Curve" id="Curve_24dhi"]
+min_value = 1.0
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, 99.0, 0, 1, Vector2(1, 100), 99.0, 0.0, 1, 0]
+point_count = 2
+
 [node name="TestLevel" type="Node3D"]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_p5xav")
 
 [node name="Environment" type="Node" parent="."]
 
@@ -68,62 +94,69 @@ shape = SubResource("BoxShape3D_jr5jv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 26)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map/Wall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 11, -1)
-size = Vector3(50, 25, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 5, -1)
+size = Vector3(50, 13, 1)
 material = SubResource("StandardMaterial3D_l3dnm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 5, -1)
 shape = SubResource("BoxShape3D_4ua2f")
 
 [node name="Wall2" type="StaticBody3D" parent="Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, -24)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map/Wall2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
-size = Vector3(50, 25, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, -1)
+size = Vector3(50, 13, 1)
 material = SubResource("StandardMaterial3D_7bsbq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, -1)
 shape = SubResource("BoxShape3D_4ua2f")
 
 [node name="Wall3" type="StaticBody3D" parent="Map"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 2, 1)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map/Wall3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
-size = Vector3(50, 25, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, -1)
+size = Vector3(50, 13, 1)
 material = SubResource("StandardMaterial3D_2q1ki")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, -1)
 shape = SubResource("BoxShape3D_4ua2f")
 
 [node name="Wall4" type="StaticBody3D" parent="Map"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -26, 2, 1)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map/Wall4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
-size = Vector3(50, 25, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, -1)
+size = Vector3(50, 13, 1)
 material = SubResource("StandardMaterial3D_qdhxn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Wall4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 10, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 4, -1)
 shape = SubResource("BoxShape3D_4ua2f")
 
+[node name="SpawnPoints" type="Node" parent="."]
+script = ExtResource("3_06owu")
+difficulty = SubResource("Curve_24dhi")
+enemy_scene = ExtResource("4_8kymg")
+ammo_scene = ExtResource("5_q1gch")
+
+[node name="SpawnPoint1" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, 20)
+
+[node name="SpawnPoint2" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, 20)
+
+[node name="SpawnPoint3" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, -20)
+
+[node name="SpawnPoint4" type="Marker3D" parent="SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, -20)
+
 [node name="Enemies" type="Node" parent="."]
-
-[node name="Beetle" parent="Enemies" instance=ExtResource("4_8kymg")]
-transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, -20, 0, 20)
-
-[node name="Beetle2" parent="Enemies" instance=ExtResource("4_8kymg")]
-transform = Transform3D(-0.707107, 0, -0.707106, 0, 1, 0, 0.707106, 0, -0.707107, 20, 0, 20)
-
-[node name="Beetle3" parent="Enemies" instance=ExtResource("4_8kymg")]
-transform = Transform3D(0.707106, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707106, 20, 0, -20)
-
-[node name="Beetle4" parent="Enemies" instance=ExtResource("4_8kymg")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -20, 0, -20)
+unique_name_in_owner = true
 
 [node name="Player" parent="." instance=ExtResource("4_a4cd6")]

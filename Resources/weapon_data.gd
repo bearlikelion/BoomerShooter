@@ -51,6 +51,6 @@ func reload() -> void:
 
 
 func restore() -> void:
-	ammo = max_ammo
-	mag = max_mag
+	# ammo = max_ammo
+	mag += max_ammo
 	restored.emit()
