@@ -9,10 +9,12 @@ height = 0.07
 
 [node name="Bullet" type="Area3D"]
 transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, 0)
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_5k5tv")
 
 [node name="bullet" parent="." instance=ExtResource("2_2p455")]
-transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, 1.81899e-14, 1.6263e-21, 0, -4.37114e-08, -1, -1.81899e-14, 1, -4.37114e-08, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

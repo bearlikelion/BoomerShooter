@@ -143,7 +143,7 @@ func _calc_roll(rollangle: float, rollspeed: float) -> float:
 
 
 func set_weapon(weapon_data: WeaponData) -> void:
-	print("Weapon changed! %s" % str(weapon_data))
+	# print("Weapon changed! %s" % str(weapon_data))
 	WEAPON_DATA = weapon_data
 	weapon_changed.emit()
 

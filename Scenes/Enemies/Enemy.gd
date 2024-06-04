@@ -11,6 +11,7 @@ signal spawn_ammo(ammo_position: Vector3)
 @export var skeleton: Skeleton3D
 @export var animation_player: AnimationPlayer
 
+var dead: bool = false
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var player = get_tree().get_first_node_in_group("player")
@@ -37,7 +38,8 @@ func take_damage() -> void:
 
 
 func handle_damage() -> void:
-	if health <= 0:
+	if health <= 0 and !dead:
+		dead = true
 		var roll = randi_range(1, 100)
 		if roll <= 20:
 			spawn_ammo.emit(position)

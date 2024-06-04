@@ -31,8 +31,7 @@ func _on_weapon_used() -> void:
 		# print("Target: %s" % target)
 		if target is PhysicalBone3D:
 			if target.name == "Head":
-				target.owner.take_damage()
-				target.owner.take_damage()
+				target.owner.headshot()
 
 			if target.owner.has_method("take_damage"):
 				target.owner.take_damage()
@@ -41,9 +40,10 @@ func _on_weapon_used() -> void:
 		var bullet: Area3D = bullet_scene.instantiate()
 		bullet.transform = gun_end.global_transform
 		bullet.scale = Vector3(5, 5, 5)
-		bullet.velocity = bullet.transform.basis.z * bullet.muzzle_velocity
-		if target:
-			bullet.end_position = target.position # result.get("position")
+		if !player.aimcast.is_colliding():
+			bullet.velocity = bullet.transform.basis.z * bullet.muzzle_velocity
+		else:
+			bullet.velocity = bullet.position.direction_to(player.aimcast.get_collision_point()) * bullet.muzzle_velocity
 		bullet.exploded.connect(_on_bullet_exploded)
 		get_tree().root.add_child(bullet)
 

@@ -34,6 +34,8 @@ background_mode = 2
 sky = SubResource("Sky_7ynlc")
 tonemap_mode = 2
 glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjfsw"]
 albedo_texture = ExtResource("1_7oi8w")
@@ -57,15 +59,16 @@ albedo_texture = ExtResource("2_067us")
 albedo_texture = ExtResource("2_067us")
 
 [sub_resource type="Curve" id="Curve_24dhi"]
-min_value = 4.0
+min_value = 1.0
 max_value = 100.0
-_data = [Vector2(0, 4), 0.0, 96.0, 0, 1, Vector2(1, 100), 96.0, 0.0, 1, 0]
+_data = [Vector2(0, 1), 0.0, 99.0, 0, 1, Vector2(1, 100), 99.0, 0.0, 1, 0]
 point_count = 2
 
 [node name="TestLevel" type="Node3D"]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_p5xav")
+volume_db = -6.0
 autoplay = true
 
 [node name="Environment" type="Node" parent="."]

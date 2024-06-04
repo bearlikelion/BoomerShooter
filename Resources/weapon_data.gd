@@ -43,6 +43,7 @@ func use() -> void:
 
 func reload() -> void:
 	if mag == 0: return
+	if ammo == max_ammo: return
 	mag = max(0, mag - (max_ammo - ammo))
 	ammo = max_ammo
 	reloaded.emit()
@@ -57,3 +58,4 @@ func restore() -> void:
 func reset() -> void:
 	ammo = max_ammo
 	mag = max_mag * max_ammo
+	restored.emit()

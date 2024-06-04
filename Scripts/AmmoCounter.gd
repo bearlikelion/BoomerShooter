@@ -9,8 +9,9 @@ var weapon_data: WeaponData
 
 
 func _ready():
-	weapon_data = weapon.weapon_data
-	await weapon_data.weapon_ready
+	# await weapon_data.weapon_ready
+	await owner.ready
+	weapon_data = owner.WEAPON_DATA
 	ammo.text = str(weapon_data.ammo)
 	mag_count.text = "%s" % str(weapon_data.mag)
 	weapon_data.connect("used", on_ammo_used)

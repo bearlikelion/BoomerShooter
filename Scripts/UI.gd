@@ -16,6 +16,4 @@ func _on_player_died() -> void:
 func _on_restart_pressed() -> void:
 	get_tree().paused = false
 	Global.player.WEAPON_DATA.reset()
-	var scene_path = get_tree().current_scene.scene_file_path
-	get_tree().unload_current_scene()
-	get_tree().change_scene_to_file(scene_path)
+	get_tree().reload_current_scene()
