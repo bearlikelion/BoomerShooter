@@ -60,12 +60,11 @@ func _ready() -> void:
 	player_ready.emit()
 
 func _physics_process(delta: float) -> void:
-	# Global.debug.add_property("Velocity","%.2f" % velocity.length(), 2)
 	update_camera(delta)
 	CAMERA_CONTROLLER.rotation.z = _calc_roll(ROLL_ANGLE, ROLL_SPEED) * 2
 
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -103,8 +102,8 @@ func update_camera(delta: float) -> void:
 
 
 func update_input(speed: float, acceleration: float, deceleration: float) -> void:
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	var direction: Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	if direction:
 		velocity.x = lerp(velocity.x, direction.x * speed, acceleration)
@@ -128,12 +127,12 @@ func _calc_roll(rollangle: float, rollspeed: float) -> float:
 	if rollangle == 0.0 or rollspeed == 0:
 		return 0
 
-	var side = velocity.dot(CAMERA_CONTROLLER.transform.basis.x)
+	var side: float = velocity.dot(CAMERA_CONTROLLER.transform.basis.x)
 	# print("Side: %s" % side)
-	var roll_sign = 1.0 if side < 0.0 else -1.0
+	var roll_sign: float = 1.0 if side < 0.0 else -1.0
 	side = absf(side)
 
-	var value = rollangle
+	var value: float = rollangle
 	if (side < rollspeed):
 		side = side * value / rollspeed
 	else:

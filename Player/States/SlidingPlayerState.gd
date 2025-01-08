@@ -9,14 +9,14 @@ class_name SlidingPlayerState extends PlayerMovementState
 @onready var CROUCH_SHAPECAST : ShapeCast3D = %ShapeCast3D
 
 
-func enter(_previous_state) -> void:
+func enter(_previous_state: State) -> void:
 	set_tilt(PLAYER._current_rotation)
 	ANIMATION.get_animation("player_animations/Sliding").track_set_key_value(4,0,PLAYER.velocity.length())
 	ANIMATION.speed_scale = 1.0
 	ANIMATION.play("player_animations/Sliding", -1.0, SLIDE_ANIM_SPEED)
 
 
-func update(delta):
+func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
 #	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION) # Disable to maintain direction while sliding
 	PLAYER.update_velocity()
@@ -29,8 +29,8 @@ func update(delta):
 		WEAPON_DATA.reload()
 
 
-func set_tilt(player_rotation) -> void:
-	var tilt = Vector3.ZERO
+func set_tilt(player_rotation: float) -> void:
+	var tilt: Vector3 = Vector3.ZERO
 	tilt.z = clamp(TILT_AMOUNT * player_rotation, -0.1, 0.1)
 	if tilt.z == 0.0:
 		tilt.z = 0.05
@@ -38,5 +38,5 @@ func set_tilt(player_rotation) -> void:
 	ANIMATION.get_animation("player_animations/Sliding").track_set_key_value(7,2,tilt)
 
 
-func finish():
+func finish() -> void:
 	transition.emit("CrouchingPlayerState")

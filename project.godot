@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 Global="*res://Scripts/global.gd"
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+gdscript/warnings/untyped_declaration=1
+
 [file_customization]
 
 folder_colors={

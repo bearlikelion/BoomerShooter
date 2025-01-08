@@ -9,7 +9,7 @@ class_name SprintingPlayerState extends PlayerMovementState
 @export var WEAPON_BOB_V : float = 1.5
 
 
-func enter(_previous_state) -> void:
+func enter(_previous_state: State) -> void:
 	if ANIMATION.is_playing() and ANIMATION.current_animation == "JumpEnd":
 		await ANIMATION.animation_finished
 		ANIMATION.play("player_animations/Sprinting",0.5,1.0)
@@ -25,7 +25,7 @@ func exit() -> void:
 	# WEAPON.weapon_bob_amount = Vector2(0,0)
 
 
-func update(delta):
+func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
 	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
@@ -33,7 +33,7 @@ func update(delta):
 	# WEAPON.sway_weapon(delta, false)
 	# WEAPON._weapon_bob(delta, WEAPON_BOB_SPD, WEAPON_BOB_H, WEAPON_BOB_V)
 
-	set_animation_speed(PLAYER.velocity.length())
+	set_animation_speed(int(PLAYER.velocity.length()))
 
 	if Input.is_action_just_released("sprint") or PLAYER.velocity.length() == 0:
 		transition.emit("IdlePlayerState")
@@ -48,6 +48,6 @@ func update(delta):
 		transition.emit("FallingPlayerState")
 
 
-func set_animation_speed(spd) -> void:
-	var alpha = remap(spd, 0.0, SPEED, 0.0, 1.0)
+func set_animation_speed(spd: int) -> void:
+	var alpha: float = remap(spd, 0.0, SPEED, 0.0, 1.0)
 	ANIMATION.speed_scale = lerp(0.0, TOP_ANIM_SPEED, alpha)

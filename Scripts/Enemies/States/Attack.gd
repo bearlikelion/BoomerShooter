@@ -8,7 +8,7 @@ func _ready() -> void:
 	ANIMATION.animation_finished.connect(_on_animation_finished)
 
 
-func enter(_previous_state) -> void:
+func enter(_previous_state: State) -> void:
 	ANIMATION.play("Hover_Attack1")
 
 

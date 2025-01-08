@@ -9,7 +9,7 @@ class_name JumpingPlayerState extends PlayerMovementState
 @export var DOUBLE_JUMP : bool = false
 
 
-func enter(_previous_state) -> void:
+func enter(_previous_state: State) -> void:
 	PLAYER.velocity.y += JUMP_VELOCITY
 	ANIMATION.play("player_animations/JumpStart")
 
@@ -18,7 +18,7 @@ func exit() -> void:
 	DOUBLE_JUMP = false
 
 
-func update(delta):
+func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
 	PLAYER.update_input(SPEED * INPUT_MULTIPLIER,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()

@@ -5,7 +5,7 @@ class_name IdlePlayerState extends PlayerMovementState
 @export var DECELERATION : float = 0.25
 
 
-func enter(_previous_state) -> void:
+func enter(_previous_state: State) -> void:
 	if ANIMATION.is_playing() and ANIMATION.current_animation == "JumpEnd":
 		await ANIMATION.animation_finished
 		ANIMATION.pause()
@@ -13,7 +13,7 @@ func enter(_previous_state) -> void:
 		ANIMATION.pause()
 
 
-func update(delta):
+func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
 	PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
 	PLAYER.update_velocity()
@@ -41,4 +41,3 @@ func update(delta):
 
 	if Input.is_action_just_pressed("reload"):
 		WEAPON_DATA.reload()
-

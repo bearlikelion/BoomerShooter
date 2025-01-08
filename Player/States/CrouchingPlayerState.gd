@@ -13,7 +13,7 @@ class_name CrouchingPlayerState extends PlayerMovementState
 var RELEASED : bool = false
 
 
-func enter(previous_state) -> void:
+func enter(previous_state: State) -> void:
 	ANIMATION.speed_scale = 1.0
 	if previous_state.name != "SlidingPlayerState":
 		ANIMATION.play("player_animations/Crouching", -1.0, CROUCH_SPEED)
@@ -28,7 +28,7 @@ func exit() -> void:
 	# WEAPON.weapon_bob_amount = Vector2(0,0)
 
 
-func update(delta):
+func update(delta: float) -> void:
 	PLAYER.update_gravity(delta)
 	PLAYER.update_input(SPEED, ACCELERATION, DECELERATION)
 	PLAYER.update_velocity()
@@ -50,7 +50,7 @@ func update(delta):
 		WEAPON_DATA.reload()
 
 
-func uncrouch():
+func uncrouch() -> void:
 	if CROUCH_SHAPECAST.is_colliding() == false:
 		ANIMATION.play("player_animations/Crouching", -1.0 ,-CROUCH_SPEED, true)
 		await ANIMATION.animation_finished

@@ -9,14 +9,13 @@ extends CenterContainer
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	RETICLE_LINES = get_children()
 	queue_redraw()
 
 
 func _process(_delta: float) -> void:
 	adjust_reticle_lines()
-	# Global.debug.add_property("Reticle Color",Color(DOT_COLOR),4)
 
 
 func _draw() -> void:
@@ -24,10 +23,10 @@ func _draw() -> void:
 
 
 func adjust_reticle_lines() -> void:
-	var vel = PLAYER_CONTROLLER.get_real_velocity()
-	var origin = Vector3(0,0,0)
-	var pos = Vector2(0,0)
-	var speed = origin.distance_to(vel)
+	var vel: Vector3 = PLAYER_CONTROLLER.get_real_velocity()
+	var origin: Vector3 = Vector3(0,0,0)
+	var pos: Vector2 = Vector2(0,0)
+	var speed: float = origin.distance_to(vel)
 
 	# Adjust Reticle Line Position
 	RETICLE_LINES[0].position = lerp(RETICLE_LINES[0].position, pos + Vector2(0, -speed * RETICLE_DISTANCE), RETICLE_SPEED) # Top

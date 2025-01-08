@@ -7,15 +7,15 @@ signal spawn_ammo(ammo_position: Vector3)
 
 @export var health: int = 2
 @export var damage: int = 10
-@export var speed = 150
+@export var speed: int = 150
 @export var skeleton: Skeleton3D
 @export var animation_player: AnimationPlayer
 
 var dead: bool = false
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-@onready var player = get_tree().get_first_node_in_group("player")
-@onready var state_machine = $EnemyStateMachine
+@onready var player: Player = get_tree().get_first_node_in_group("player")
+@onready var state_machine: StateMachine = $EnemyStateMachine
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,7 +40,7 @@ func take_damage() -> void:
 func handle_damage() -> void:
 	if health <= 0 and !dead:
 		dead = true
-		var roll = randi_range(1, 100)
+		var roll: int = randi_range(1, 100)
 		if roll <= 20:
 			spawn_ammo.emit(position)
 

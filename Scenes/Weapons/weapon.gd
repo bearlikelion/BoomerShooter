@@ -3,7 +3,7 @@ extends Node3D
 @export var weapon_data: WeaponData
 @export var bullet_scene: PackedScene
 
-var bullet_hole = preload("res://Scenes/raycast_test.tscn")
+var bullet_hole: Resource = preload("res://Scenes/raycast_test.tscn")
 
 @onready var gun_end: Marker3D = %GunEnd
 @onready var fps_arms: Node3D = get_tree().get_first_node_in_group("fps_arms")
@@ -19,8 +19,8 @@ func _ready() -> void:
 
 
 func _on_weapon_used() -> void:
-	var shoot_time_diff = Time.get_ticks_msec() - player.last_firing_time
-	var busy = fps_arms.is_reloading or !(shoot_time_diff > weapon_data.fire_rate)
+	var shoot_time_diff: int = Time.get_ticks_msec() - player.last_firing_time
+	var busy: bool = fps_arms.is_reloading or !(shoot_time_diff > weapon_data.fire_rate)
 	if !busy:
 		player.last_firing_time = Time.get_ticks_msec()
 		fps_arms.fire()
@@ -53,14 +53,14 @@ func _on_weapon_used() -> void:
 
 
 func get_gun_end_position() -> Vector3:
-	var camera = Global.player.CAMERA_CONTROLLER
-	var depth = Global.player.arms_view.camera.to_local(gun_end.global_position).length()
-	var screen_pos = Global.player.arms_view.camera.unproject_position(gun_end.global_position)
+	var camera: Camera3D = Global.player.CAMERA_CONTROLLER
+	var depth: int = Global.player.arms_view.camera.to_local(gun_end.global_position).length()
+	var screen_pos: Vector2 = Global.player.arms_view.camera.unproject_position(gun_end.global_position)
 	return (camera.project_position(screen_pos, depth))
 
 
 func _on_bullet_exploded(explosion_position: Vector3) -> void:
-	var hole_decal = bullet_hole.instantiate()
+	var hole_decal: Decal = bullet_hole.instantiate()
 	hole_decal.position = explosion_position
 	get_tree().root.add_child(hole_decal)
 
@@ -75,7 +75,7 @@ func _on_weapon_reloaded() -> void:
 
 
 func _bullet_hole(hole_position: Vector3, normal: Vector3) -> void:
-	var instance = bullet_hole.instantiate()
+	var instance: Decal = bullet_hole.instantiate()
 	get_tree().root.add_child(instance)
 	instance.global_position = hole_position
 	if normal != Vector3.UP:
@@ -86,7 +86,7 @@ func _bullet_hole(hole_position: Vector3, normal: Vector3) -> void:
 
 	await get_tree().create_timer(2.0).timeout
 
-	var face = get_tree().create_tween()
+	var face: Tween = get_tree().create_tween()
 	face.tween_property(instance, "modulate:a", 0, 1.5)
 
 	await get_tree().create_timer(1.5).timeout

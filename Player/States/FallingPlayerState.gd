@@ -7,7 +7,7 @@ class_name FallingPlayerState extends PlayerMovementState
 @export var DOUBLE_JUMP : bool = false
 
 
-func enter(_previous_state) -> void:
+func enter(_previous_state: State) -> void:
 	ANIMATION.pause()
 
 

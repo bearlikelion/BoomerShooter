@@ -7,8 +7,8 @@ extends Node
 var current_wave: int = 0
 var is_spawning: bool = false
 
-@onready var spawn_points = get_children()
-@onready var enemies_node = %Enemies
+@onready var spawn_points: Array[Node] = get_children()
+@onready var enemies_node: Node = %Enemies
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,8 +31,8 @@ func spawn_wave() -> void:
 			_spawn_points = spawn_points.duplicate()
 			_spawn_points.shuffle()
 
-		var spawn_point = _spawn_points.pop_front()
-		var _enemy = enemy_scene.instantiate()
+		var spawn_point: Marker3D = _spawn_points.pop_front()
+		var _enemy: Enemy = enemy_scene.instantiate()
 		_enemy.position = spawn_point.position
 		_enemy.spawn_ammo.connect(_on_ammo_spawned)
 		_enemy.add_to_group("enemy")
@@ -41,7 +41,7 @@ func spawn_wave() -> void:
 
 
 func _on_ammo_spawned(ammo_position: Vector3) -> void:
-	var ammo_pickup = ammo_scene.instantiate()
+	var ammo_pickup: Area3D = ammo_scene.instantiate()
 	ammo_pickup.position = ammo_position
 	ammo_pickup.position.y += 0.5
 	get_tree().root.add_child(ammo_pickup)
