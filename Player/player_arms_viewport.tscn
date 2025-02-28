@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://b8i8vajkg00s0"]
 
-[ext_resource type="Script" path="res://Player/player_arms.gd" id="1_e15a3"]
+[ext_resource type="Script" uid="uid://1gwvnaug617u" path="res://Player/player_arms.gd" id="1_e15a3"]
 [ext_resource type="PackedScene" uid="uid://bfds1jl6qnyxw" path="res://Player/fps_arms.tscn" id="3_dn753"]
 [ext_resource type="Material" uid="uid://dlnmdgy8fd47u" path="res://Player/materials/arms_mat.tres" id="3_jikf0"]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dw023i41m8v7o"]
 
 [ext_resource type="PackedScene" uid="uid://du11d47ug2djx" path="res://Assets/Models/Weapons/Handgun/handgun.glb" id="1_hxgve"]
-[ext_resource type="Script" path="res://Scenes/Weapons/weapon.gd" id="1_vu752"]
-[ext_resource type="Script" path="res://Resources/weapon_data.gd" id="2_gosbd"]
+[ext_resource type="Script" uid="uid://c7ejayfq51d5c" path="res://Scenes/Weapons/weapon.gd" id="1_vu752"]
+[ext_resource type="Script" uid="uid://c0s88gdk82v7h" path="res://Resources/weapon_data.gd" id="2_gosbd"]
 [ext_resource type="PackedScene" uid="uid://dr6b6ryyt0ni0" path="res://Scenes/Bullet.tscn" id="3_byrow"]
 [ext_resource type="AudioStream" uid="uid://pm07vufsa2ef" path="res://Assets/Sounds/SFX/345448__artmasterrich__laserfire_02.wav" id="5_i1tjs"]
 [ext_resource type="AudioStream" uid="uid://b5gfcw8nao5dd" path="res://Assets/Sounds/SFX/621155__ktfreesound__reload-escopeta-m7.wav" id="6_87jdb"]

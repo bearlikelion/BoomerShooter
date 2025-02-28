@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://k58nwti5i5p3"]
 
-[ext_resource type="Script" path="res://Scripts/init_weapon.gd" id="1_7ex2o"]
+[ext_resource type="Script" uid="uid://e4oyt1jtif8h" path="res://Scripts/init_weapon.gd" id="1_7ex2o"]
 [ext_resource type="ArrayMesh" uid="uid://boo2ebslty6v7" path="res://Scenes/Weapons/BlasterPistol/blaster_pistol.res" id="1_gifpt"]
 [ext_resource type="Resource" uid="uid://bn2r7bayqbxe2" path="res://Scenes/Weapons/BlasterPistol/weapon_blaster_pistol.tres" id="2_xr2gb"]
 

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bld7u3tktdtk8" path="res://Assets/Textures/Prototype/orange_floor.png" id="1_7oi8w"]
 [ext_resource type="AudioStream" uid="uid://brwl1aayv62n5" path="res://Assets/Sounds/Music/Marksmans_Mayhem.ogg" id="1_p5xav"]
 [ext_resource type="Texture2D" uid="uid://dotj2ok7ih1ve" path="res://Assets/Textures/Prototype/dark_wall.png" id="2_067us"]
-[ext_resource type="Script" path="res://Scripts/SpawnManager.gd" id="3_06owu"]
+[ext_resource type="Script" uid="uid://ckdfo5hmxbgfa" path="res://Scripts/SpawnManager.gd" id="3_06owu"]
 [ext_resource type="PackedScene" uid="uid://c7qsvamep2fwb" path="res://Scenes/Enemies/Beetle/Beetle.tscn" id="4_8kymg"]
 [ext_resource type="PackedScene" uid="uid://43anfrovcnqp" path="res://Player/Player.tscn" id="4_a4cd6"]
 [ext_resource type="PackedScene" uid="uid://6flrdeusbusq" path="res://Scenes/Pickups/ammo_pickup.tscn" id="5_q1gch"]
@@ -59,8 +59,7 @@ albedo_texture = ExtResource("2_067us")
 albedo_texture = ExtResource("2_067us")
 
 [sub_resource type="Curve" id="Curve_24dhi"]
-min_value = 1.0
-max_value = 100.0
+_limits = [0.99, 100.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 99.0, 0, 1, Vector2(1, 100), 99.0, 0.0, 1, 0]
 point_count = 2
 

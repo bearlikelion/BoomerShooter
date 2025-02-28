@@ -1,10 +1,10 @@
 [gd_scene load_steps=31 format=3 uid="uid://c7qsvamep2fwb"]
 
 [ext_resource type="PackedScene" uid="uid://b3dwcphoy104o" path="res://Assets/Models/Enemies/beetle.glb" id="1_lcwkd"]
-[ext_resource type="Script" path="res://Scenes/Enemies/Enemy.gd" id="1_r7yee"]
-[ext_resource type="Script" path="res://Scripts/state_machine.gd" id="3_xhf75"]
-[ext_resource type="Script" path="res://Scripts/Enemies/States/Chase.gd" id="4_qql02"]
-[ext_resource type="Script" path="res://Scripts/Enemies/States/Attack.gd" id="5_li4u6"]
+[ext_resource type="Script" uid="uid://tk6daw6sxd3d" path="res://Scenes/Enemies/Enemy.gd" id="1_r7yee"]
+[ext_resource type="Script" uid="uid://ew6scmr8pyk4" path="res://Scripts/state_machine.gd" id="3_xhf75"]
+[ext_resource type="Script" uid="uid://ifgxtood81xh" path="res://Scripts/Enemies/States/Chase.gd" id="4_qql02"]
+[ext_resource type="Script" uid="uid://vbbl8vr3aq1j" path="res://Scripts/Enemies/States/Attack.gd" id="5_li4u6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sjogr"]
 radius = 0.4

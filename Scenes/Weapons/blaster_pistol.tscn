@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ck3qnvomiarpq"]
 
-[ext_resource type="Script" path="res://Scenes/Weapons/weapon.gd" id="1_52mt6"]
+[ext_resource type="Script" uid="uid://c7ejayfq51d5c" path="res://Scenes/Weapons/weapon.gd" id="1_52mt6"]
 [ext_resource type="PackedScene" uid="uid://d24ouxg548w8i" path="res://Assets/Models/Weapons/Blaster Pistol/blaster_pistol.glb" id="1_p73wa"]
 [ext_resource type="Resource" uid="uid://pcxtibfv1mmq" path="res://Resources/blaster_pistol.tres" id="2_qfjqq"]
 [ext_resource type="PackedScene" uid="uid://dr6b6ryyt0ni0" path="res://Scenes/Bullet.tscn" id="3_04bxc"]

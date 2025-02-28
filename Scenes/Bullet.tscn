@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dr6b6ryyt0ni0"]
 
-[ext_resource type="Script" path="res://Scenes/Bullet.gd" id="1_5k5tv"]
+[ext_resource type="Script" uid="uid://kfv7lxn766pq" path="res://Scenes/Bullet.gd" id="1_5k5tv"]
 [ext_resource type="PackedScene" uid="uid://b0l5tcs8qcbx2" path="res://Assets/Models/Weapons/Ammo/bullet.glb" id="2_2p455"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cocov"]

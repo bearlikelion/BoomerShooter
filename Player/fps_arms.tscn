@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://bfds1jl6qnyxw"]
 
-[ext_resource type="Script" path="res://Player/fps_arms.gd" id="1_d8188"]
+[ext_resource type="Script" uid="uid://l8xx6s1o0lnv" path="res://Player/fps_arms.gd" id="1_d8188"]
 [ext_resource type="PackedScene" uid="uid://caf5c82qkytd0" path="res://Assets/fps_arms.glb" id="2_1o348"]
 [ext_resource type="PackedScene" uid="uid://dgmyr4l0e35ra" path="res://Scenes/Weapons/SMG/SMG.tscn" id="2_u42qr"]
 [ext_resource type="Material" uid="uid://dlnmdgy8fd47u" path="res://Player/materials/arms_mat.tres" id="3_xsro0"]
@@ -8449,14 +8449,14 @@ tracks/149/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.0333333, 1, 1, 1, 1, 0.066
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_52u5k"]
 _data = {
-"Fire": SubResource("Animation_jfh0m"),
-"GroundImpact": SubResource("Animation_h114c"),
-"Idle": SubResource("Animation_ebetm"),
-"RESET": SubResource("Animation_667ap"),
-"ReloadMag": SubResource("Animation_lhi67"),
-"ReloadTop": SubResource("Animation_d3gs6"),
-"Shake": SubResource("Animation_h2kxu"),
-"Walk": SubResource("Animation_c8s7g")
+&"Fire": SubResource("Animation_jfh0m"),
+&"GroundImpact": SubResource("Animation_h114c"),
+&"Idle": SubResource("Animation_ebetm"),
+&"RESET": SubResource("Animation_667ap"),
+&"ReloadMag": SubResource("Animation_lhi67"),
+&"ReloadTop": SubResource("Animation_d3gs6"),
+&"Shake": SubResource("Animation_h2kxu"),
+&"Walk": SubResource("Animation_c8s7g")
 }
 
 [node name="Arms" type="Node3D"]

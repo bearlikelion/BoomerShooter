@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ngwm4vqqg8my"]
 
 [ext_resource type="Texture2D" uid="uid://ccdl3d10pmgei" path="res://Assets/Images/1_generic_comic_book.png" id="1_kq13u"]
-[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_s1ljv"]
+[ext_resource type="Script" uid="uid://c3luc6e2jyy4o" path="res://Scripts/main_menu.gd" id="1_s1ljv"]
 [ext_resource type="Theme" uid="uid://bx4l8lfeug8r" path="res://godot_fps.tres" id="1_upbr2"]
 
 [node name="MainMenu" type="Control"]

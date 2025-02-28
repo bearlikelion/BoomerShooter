@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bbyv0skj0aqlb"]
 
-[ext_resource type="Script" path="res://Scenes/Weapons/weapon.gd" id="1_unosv"]
-[ext_resource type="Script" path="res://Resources/weapon_data.gd" id="2_svvj3"]
+[ext_resource type="Script" uid="uid://c7ejayfq51d5c" path="res://Scenes/Weapons/weapon.gd" id="1_unosv"]
+[ext_resource type="Script" uid="uid://c0s88gdk82v7h" path="res://Resources/weapon_data.gd" id="2_svvj3"]
 [ext_resource type="PackedScene" uid="uid://dr6b6ryyt0ni0" path="res://Scenes/Bullet.tscn" id="3_6eynv"]
 [ext_resource type="PackedScene" uid="uid://c2ifiwk26dnbm" path="res://Assets/Models/Weapons/Shotgun/Shotgun.glb" id="4_2ynt4"]
 [ext_resource type="AudioStream" uid="uid://pm07vufsa2ef" path="res://Assets/Sounds/SFX/345448__artmasterrich__laserfire_02.wav" id="5_vpodp"]

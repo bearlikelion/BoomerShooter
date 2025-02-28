@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapons" load_steps=3 format=3 uid="uid://bn2r7bayqbxe2"]
 
 [ext_resource type="ArrayMesh" uid="uid://boo2ebslty6v7" path="res://Scenes/Weapons/BlasterPistol/blaster_pistol.res" id="1_wygvi"]
-[ext_resource type="Script" path="res://Scenes/Weapons/weapons.gd" id="2_5iph4"]
+[ext_resource type="Script" uid="uid://c1gq01xajgj5x" path="res://Scenes/Weapons/weapons.gd" id="2_5iph4"]
 
 [resource]
 script = ExtResource("2_5iph4")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://6flrdeusbusq"]
 
-[ext_resource type="Script" path="res://Scenes/Pickups/ammo_pickup.gd" id="1_a3d47"]
+[ext_resource type="Script" uid="uid://xdyyrcc1ci50" path="res://Scenes/Pickups/ammo_pickup.gd" id="1_a3d47"]
 [ext_resource type="PackedScene" uid="uid://p1fk80cnjov8" path="res://Assets/Models/Pickups/pickup_box.glb" id="1_phn3w"]
 [ext_resource type="Texture2D" uid="uid://birmu7gcml0d2" path="res://Assets/Models/Pickups/Textures/ammo_pickup_diffuse.png" id="2_hmx1w"]
 [ext_resource type="Texture2D" uid="uid://1n587rjnnoek" path="res://Assets/Models/Pickups/Textures/ammo_pickup_normal.png" id="3_bn26j"]
@@ -33,7 +33,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wglbx"]
 _data = {
-"bob": SubResource("Animation_sjxvx")
+&"bob": SubResource("Animation_sjxvx")
 }
 
 [node name="AmmoPickup" type="Area3D"]

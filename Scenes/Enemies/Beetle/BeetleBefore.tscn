@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://di36bik1yixj5"]
 
 [ext_resource type="PackedScene" uid="uid://b3dwcphoy104o" path="res://Assets/Models/Enemies/beetle.glb" id="1_wdfnw"]
-[ext_resource type="Script" path="res://Scenes/Enemies/Enemy.gd" id="2_y8dtr"]
+[ext_resource type="Script" uid="uid://tk6daw6sxd3d" path="res://Scenes/Enemies/Enemy.gd" id="2_y8dtr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6xocl"]
 radius = 0.015222
