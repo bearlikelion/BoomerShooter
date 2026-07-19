@@ -5,6 +5,9 @@ class_name WeaponData
 @export var max_ammo: int
 @export var max_mag: int
 @export var fire_rate: int
+@export var recoil: Vector3 = Vector3(0.05, 0.002, 0.0)
+@export var pellet_count: int = 1
+@export var spread_degrees: float = 0.0
 
 var ammo: int
 var mag: int

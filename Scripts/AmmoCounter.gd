@@ -1,28 +1,48 @@
-extends HBoxContainer
+class_name AmmoCounter
+
+extends Label3D
+
+@export var NORMAL_COLOR: Color = Color.WHITE
+@export var RELOAD_COLOR: Color = Color.RED
 
 var weapon_data: WeaponData
 
-@onready var weapon: Node3D = get_tree().get_first_node_in_group("weapon")
-# @onready var bullet_icon_scene = preload("./bullet_icon.tscn")
-@onready var ammo: Label = %Ammo
-@onready var mag_count: Label = %Magezine
+@onready var player: Player = owner
 
 
+# Follow the owning player's weapon and show its ammo beside the gun
 func _ready() -> void:
-	# await weapon_data.weapon_ready
-	await owner.ready
-	weapon_data = owner.WEAPON_DATA
-	ammo.text = str(weapon_data.ammo)
-	mag_count.text = "%s" % str(weapon_data.mag)
-	weapon_data.connect("used", on_ammo_used)
-	weapon_data.connect("reloaded", on_ammo_reloaded)
-	weapon_data.connect("restored", on_ammo_reloaded)
+	await player.ready
+	player.weapon_changed.connect(_on_weapon_changed)
+	_track_weapon(player.WEAPON_DATA)
 
 
-func on_ammo_used() -> void:
-	ammo.text = str(weapon_data.ammo)
+# Swap signal connections over to the newly equipped weapon
+func _track_weapon(new_weapon_data: WeaponData) -> void:
+	if weapon_data != null:
+		weapon_data.used.disconnect(_refresh)
+		weapon_data.reloaded.disconnect(_refresh)
+		weapon_data.restored.disconnect(_refresh)
+
+	weapon_data = new_weapon_data
+	if weapon_data == null:
+		text = ""
+		return
+
+	weapon_data.used.connect(_refresh)
+	weapon_data.reloaded.connect(_refresh)
+	weapon_data.restored.connect(_refresh)
+	_refresh()
 
 
-func on_ammo_reloaded() -> void:
-	ammo.text = str(weapon_data.ammo)
-	mag_count.text = "%s" % str(weapon_data.mag)
+# Update the readout and turn red when the magazine is empty
+func _refresh() -> void:
+	text = "%s / %s" % [str(weapon_data.ammo), str(weapon_data.mag)]
+	if weapon_data.ammo == 0:
+		modulate = RELOAD_COLOR
+	else:
+		modulate = NORMAL_COLOR
+
+
+func _on_weapon_changed() -> void:
+	_track_weapon(player.WEAPON_DATA)

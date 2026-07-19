@@ -10,12 +10,37 @@ I developed this over a weekend to get a better understanding of state machines.
 I learned a lot from the [Godot-4-fpsarms](https://github.com/gdquest-demos/godot-4-FPS-arms) demo
 
 ## Controls:
+
+### Keyboard & Mouse
 * WASD - Movement
+* Mouse - Look
+* Left Click - Shoot
+* Right Click - Aim Down Sights
 * R - Reload
 * Space - Jump
 * Shift - Sprint
 * Ctrl - Crouch
 * Sprint+Crouch - Slide
+* 1/2/3 - Switch Weapon
+* Q (Hold) - Weapon Wheel
+* E - Interact
+* Esc - Pause Menu
+
+### Controller
+Full controller support with analog movement and camera, plus aim assist (sticky aim) on the right stick.
+* Left Stick - Movement
+* Right Stick - Look
+* Right Trigger - Shoot
+* Left Trigger - Aim Down Sights
+* X/Square - Reload
+* A/Cross - Jump
+* L3 (Left Stick Click) - Sprint
+* B/Circle - Crouch
+* Sprint+Crouch - Slide
+* D-pad Up/Right/Down - Switch Weapon
+* LB/L1 (Hold) - Weapon Wheel
+* Y/Triangle - Interact
+* Start - Pause Menu
 
 ## Save File
 I use a Godot resource to save data for the player.

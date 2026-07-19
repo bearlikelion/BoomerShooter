@@ -11,7 +11,6 @@ var bullet_hole: Resource = preload("res://Scenes/raycast_test.tscn")
 
 func _ready() -> void:
 	await player.player_ready
-	player.set_weapon(weapon_data)
 	weapon_data.used.connect(_on_weapon_used)
 	weapon_data.empty.connect(_on_weapon_empty)
 	weapon_data.reloaded.connect(_on_weapon_reloaded)
@@ -36,20 +35,43 @@ func _on_weapon_used() -> void:
 			if target.owner.has_method("take_damage"):
 				target.owner.take_damage()
 
-		# Spawn Bullet Projectile
-		var bullet: Area3D = bullet_scene.instantiate()
-		bullet.transform = gun_end.global_transform
-		bullet.scale = Vector3(5, 5, 5)
-		if !player.aimcast.is_colliding():
-			bullet.velocity = bullet.transform.basis.z * bullet.muzzle_velocity
+		# Spawn bullet projectiles in the weapon's spread cone
+		var aim_direction: Vector3
+		if player.aimcast.is_colliding():
+			aim_direction = gun_end.global_position.direction_to(player.aimcast.get_collision_point())
 		else:
-			bullet.velocity = bullet.position.direction_to(player.aimcast.get_collision_point()) * bullet.muzzle_velocity
-		bullet.exploded.connect(_on_bullet_exploded)
-		get_tree().root.add_child(bullet)
+			aim_direction = gun_end.global_transform.basis.z
+
+		for pellet: int in weapon_data.pellet_count:
+			_spawn_bullet(_spread_direction(aim_direction))
 
 		# Create Bullet Hole
 		if target:
 			_bullet_hole(player.aimcast.get_collision_point(), player.aimcast.get_collision_normal())
+
+
+func _spawn_bullet(direction: Vector3) -> void:
+	var bullet: Area3D = bullet_scene.instantiate()
+	bullet.transform = gun_end.global_transform
+	bullet.scale = Vector3(5, 5, 5)
+	bullet.velocity = direction * bullet.muzzle_velocity
+	bullet.exploded.connect(_on_bullet_exploded)
+	get_tree().root.add_child(bullet)
+
+
+# Deviate the aim direction by a random angle inside the weapon's spread cone
+func _spread_direction(aim_direction: Vector3) -> Vector3:
+	if weapon_data.spread_degrees <= 0.0:
+		return aim_direction
+
+	var spread: float = deg_to_rad(weapon_data.spread_degrees)
+	var right: Vector3 = aim_direction.cross(Vector3.UP)
+	if right.length() < 0.001:
+		right = Vector3.RIGHT
+	right = right.normalized()
+	var up: Vector3 = right.cross(aim_direction).normalized()
+
+	return aim_direction.rotated(up, randf_range(-spread, spread)).rotated(right, randf_range(-spread, spread)).normalized()
 
 
 func get_gun_end_position() -> Vector3:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://baf7ntlcbcmn8"]
+[gd_scene load_steps=23 format=3 uid="uid://baf7ntlcbcmn8"]
 
 [ext_resource type="Texture2D" uid="uid://bld7u3tktdtk8" path="res://Assets/Textures/Prototype/orange_floor.png" id="1_7oi8w"]
 [ext_resource type="AudioStream" uid="uid://brwl1aayv62n5" path="res://Assets/Sounds/Music/Marksmans_Mayhem.ogg" id="1_p5xav"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c7qsvamep2fwb" path="res://Scenes/Enemies/Beetle/Beetle.tscn" id="4_8kymg"]
 [ext_resource type="PackedScene" uid="uid://43anfrovcnqp" path="res://Player/Player.tscn" id="4_a4cd6"]
 [ext_resource type="PackedScene" uid="uid://6flrdeusbusq" path="res://Scenes/Pickups/ammo_pickup.tscn" id="5_q1gch"]
+[ext_resource type="PackedScene" path="res://Scenes/Pickups/health_pickup.tscn" id="6_hpkup"]
 
 [sub_resource type="Gradient" id="Gradient_m7n3u"]
 colors = PackedColorArray(0.235294, 0.0784314, 0.00784314, 1, 1, 1, 1, 1)
@@ -146,6 +147,7 @@ script = ExtResource("3_06owu")
 difficulty = SubResource("Curve_24dhi")
 enemy_scene = ExtResource("4_8kymg")
 ammo_scene = ExtResource("5_q1gch")
+health_scene = ExtResource("6_hpkup")
 
 [node name="SpawnPoint1" type="Marker3D" parent="SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, 20)

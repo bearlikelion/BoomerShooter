@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://43anfrovcnqp"]
+[gd_scene load_steps=38 format=3 uid="uid://43anfrovcnqp"]
 
 [ext_resource type="Script" uid="uid://c073qn3v55jsv" path="res://Player/Player.gd" id="1_qx042"]
 [ext_resource type="Script" uid="uid://ew6scmr8pyk4" path="res://Scripts/state_machine.gd" id="2_673q6"]
@@ -19,6 +19,10 @@
 [ext_resource type="Script" uid="uid://dgyw1pqtjdqty" path="res://Scripts/AmmoCounter.gd" id="13_n1cxg"]
 [ext_resource type="Script" uid="uid://cwsybkekbphq2" path="res://Scripts/Player/Kills.gd" id="15_k4xnt"]
 [ext_resource type="AudioStream" uid="uid://b0yyh0jgbjgq0" path="res://Assets/Sounds/SFX/163441__under7dude__man-getting-hit.wav" id="18_jed4w"]
+[ext_resource type="Script" path="res://Scripts/Player/HitIndicator.gd" id="19_hitind"]
+[ext_resource type="Script" path="res://Scripts/Player/LowHealthOverlay.gd" id="20_lowhp"]
+[ext_resource type="Script" path="res://Scripts/Player/PauseMenu.gd" id="21_pause"]
+[ext_resource type="Script" path="res://Scripts/Player/WeaponWheel.gd" id="22_wheel"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rlh3f"]
 
@@ -33,15 +37,91 @@ radius = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6f06g"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_opodr"]
-font_size = 48
-outline_size = 5
+[sub_resource type="LabelSettings" id="LabelSettings_hud"]
+font_size = 96
+outline_size = 14
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_offset = Vector2(4, 4)
 
-[sub_resource type="LabelSettings" id="LabelSettings_nxwgr"]
-font_size = 48
-outline_size = 5
+[sub_resource type="LabelSettings" id="LabelSettings_kills"]
+font_size = 72
+outline_size = 12
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause"]
+bg_color = Color(0, 0, 0, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pausepanel"]
+content_margin_left = 48.0
+content_margin_top = 28.0
+content_margin_right = 48.0
+content_margin_bottom = 28.0
+bg_color = Color(0.05, 0.05, 0.07, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.25, 0.15, 0.5)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbtn_normal"]
+content_margin_left = 32.0
+content_margin_top = 8.0
+content_margin_right = 32.0
+content_margin_bottom = 8.0
+bg_color = Color(0.08, 0.08, 0.1, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbtn_hover"]
+content_margin_left = 32.0
+content_margin_top = 8.0
+content_margin_right = 32.0
+content_margin_bottom = 8.0
+bg_color = Color(0.18, 0.08, 0.06, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.25, 0.15, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbtn_focus"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.4, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Gradient" id="Gradient_lowhp"]
+offsets = PackedFloat32Array(0.55, 1)
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lowhp"]
+gradient = SubResource("Gradient_lowhp")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("FPS_ARMS", "ANIMATIONPLAYER", "CAMERA_CONTROLLER") groups=["player"]]
 script = ExtResource("1_qx042")
@@ -71,7 +151,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Recoil" type="Node3D" parent="CameraController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.33)
 script = ExtResource("2_v2qtf")
-recoil_amount = Vector3(0.15, 0.005, 0)
 snap_amount = 8.0
 speed = 4.0
 
@@ -82,6 +161,17 @@ unique_name_in_owner = true
 
 [node name="Arms" parent="CameraController/Recoil/Camera3D/WeaponRig" instance=ExtResource("3_i64jh")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.301148, 0.0638601)
+
+[node name="AmmoCounter" type="Label3D" parent="CameraController/Recoil/Camera3D/WeaponRig"]
+transform = Transform3D(0.9397, 0, -0.342, 0, 1, 0, 0.342, 0, 0.9397, 0.32, -0.2, -0.6)
+pixel_size = 0.001
+render_priority = 10
+text = "0 / 0"
+font = ExtResource("12_6kjly")
+font_size = 48
+outline_size = 10
+no_depth_test = true
+script = ExtResource("13_n1cxg")
 
 [node name="AimCast" type="RayCast3D" parent="CameraController/Recoil/Camera3D"]
 unique_name_in_owner = true
@@ -145,32 +235,45 @@ script = ExtResource("12_yp5at")
 
 [node name="UILayer" type="CanvasLayer" parent="UI"]
 
-[node name="HP" type="Label" parent="UI/UILayer"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -44.0
-offset_right = 44.0
-offset_bottom = 23.0
+[node name="LowHealthOverlay" type="TextureRect" parent="UI/UILayer"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_lowhp")
+expand_mode = 1
+script = ExtResource("20_lowhp")
+
+[node name="HP" type="Label" parent="UI/UILayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -128.0
+offset_right = 424.0
+offset_bottom = -24.0
+grow_vertical = 0
 theme_override_fonts/font = ExtResource("12_6kjly")
-theme_override_font_sizes/font_size = 48
-text = "Health: 100"
-label_settings = SubResource("LabelSettings_opodr")
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 96
+text = "HP 100"
+label_settings = SubResource("LabelSettings_hud")
 script = ExtResource("12_cu6pu")
 
 [node name="Kills" type="Label" parent="UI/UILayer"]
+modulate = Color(1, 0.85, 0.3, 1)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -182.0
-offset_bottom = 41.0
+offset_left = -420.0
+offset_bottom = 80.0
 grow_horizontal = 0
 theme_override_fonts/font = ExtResource("12_6kjly")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 72
 text = "KILLS: 0"
-label_settings = SubResource("LabelSettings_opodr")
+label_settings = SubResource("LabelSettings_kills")
 horizontal_alignment = 2
 script = ExtResource("15_k4xnt")
 
@@ -201,51 +304,97 @@ width = 2.0
 points = PackedVector2Array(-5, 0, -15, 0)
 width = 2.0
 
-[node name="AmmoCounter" type="HBoxContainer" parent="UI/UILayer"]
-anchors_preset = 2
-anchor_top = 1.0
+[node name="HitIndicator" type="Control" parent="UI/UILayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("19_hitind")
+
+[node name="WeaponWheel" type="Control" parent="UI/UILayer"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
-grow_vertical = 0
-size_flags_vertical = 8
-script = ExtResource("13_n1cxg")
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("22_wheel")
+FONT = ExtResource("12_6kjly")
 
-[node name="AmmoLabel" type="Label" parent="UI/UILayer/AmmoCounter"]
+[node name="PauseLayer" type="CanvasLayer" parent="UI"]
+process_mode = 3
+layer = 2
+script = ExtResource("21_pause")
+
+[node name="Panel" type="Panel" parent="UI/PauseLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pause")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/PauseLayer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuPanel" type="PanelContainer" parent="UI/PauseLayer/Panel/CenterContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("12_6kjly")
-theme_override_font_sizes/font_size = 48
-text = "AMMO:"
-label_settings = SubResource("LabelSettings_nxwgr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_pausepanel")
 
-[node name="Ammo" type="Label" parent="UI/UILayer/AmmoCounter"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseLayer/Panel/CenterContainer/MenuPanel"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="UI/PauseLayer/Panel/CenterContainer/MenuPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("12_6kjly")
+theme_override_font_sizes/font_size = 96
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="UI/PauseLayer/Panel/CenterContainer/MenuPanel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("12_6kjly")
-theme_override_font_sizes/font_size = 48
-text = "0"
-label_settings = SubResource("LabelSettings_nxwgr")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxFlat_pbtn_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pbtn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pbtn_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pbtn_normal")
+text = "RESUME"
 
-[node name="Slash" type="Label" parent="UI/UILayer/AmmoCounter"]
-unique_name_in_owner = true
+[node name="MenuButton" type="Button" parent="UI/PauseLayer/Panel/CenterContainer/MenuPanel/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("12_6kjly")
-theme_override_font_sizes/font_size = 48
-text = "/"
-label_settings = SubResource("LabelSettings_nxwgr")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxFlat_pbtn_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pbtn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pbtn_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pbtn_normal")
+text = "Back to menu"
 
-[node name="Magezine" type="Label" parent="UI/UILayer/AmmoCounter"]
-unique_name_in_owner = true
+[node name="QuitButton" type="Button" parent="UI/PauseLayer/Panel/CenterContainer/MenuPanel/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("12_6kjly")
-theme_override_font_sizes/font_size = 48
-text = "18
-"
-label_settings = SubResource("LabelSettings_nxwgr")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxFlat_pbtn_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pbtn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pbtn_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pbtn_normal")
+text = "Quit game"
 
 [node name="GameOverLayer" type="CanvasLayer" parent="UI"]
 unique_name_in_owner = true
@@ -276,6 +425,7 @@ theme_override_font_sizes/font_size = 120
 text = "GAME OVER"
 
 [node name="Restart" type="Button" parent="UI/GameOverLayer/Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -296,5 +446,8 @@ unique_name_in_owner = true
 stream = ExtResource("18_jed4w")
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="pressed" from="UI/PauseLayer/Panel/CenterContainer/MenuPanel/VBoxContainer/ResumeButton" to="UI/PauseLayer" method="_on_resume_pressed"]
+[connection signal="pressed" from="UI/PauseLayer/Panel/CenterContainer/MenuPanel/VBoxContainer/MenuButton" to="UI/PauseLayer" method="_on_menu_pressed"]
+[connection signal="pressed" from="UI/PauseLayer/Panel/CenterContainer/MenuPanel/VBoxContainer/QuitButton" to="UI/PauseLayer" method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/GameOverLayer/Panel/VBoxContainer/Restart" to="UI" method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/GameOverLayer/Panel/VBoxContainer/Back" to="UI" method="_on_back_pressed"]

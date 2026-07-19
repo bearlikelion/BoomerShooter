@@ -5,13 +5,23 @@ extends CharacterBody3D
 signal shoot(origin: Vector3, normal: Vector3, gun_end_position: Vector3)
 signal weapon_changed(weapon_data: WeaponData)
 signal player_ready
-signal player_hurt
+signal player_hurt(hit_position: Vector3)
+signal health_changed
 signal player_died
 signal enemy_killed
 signal kills_changed
 
 @export var FPS_ARMS: Node3D
 @export var MOUSE_SENSITIVITY: float = 0.33
+@export var CONTROLLER_SENSITIVITY: float = 2.0
+@export var CONTROLLER_VERTICAL_MULTIPLIER: float = 0.6
+@export var SPRINT_FOV_MULTIPLIER: float = 1.15
+@export var ADS_FOV_MULTIPLIER: float = 0.7
+@export var ADS_SENSITIVITY_MULTIPLIER: float = 0.6
+@export var ADS_ZOOM_SPEED: float = 12.0
+@export var AIM_ASSIST_ANGLE: float = deg_to_rad(5.0)
+@export var AIM_ASSIST_RANGE: float = 40.0
+@export var AIM_ASSIST_STRENGTH: float = 0.5
 @export var TILT_LOWER_LIMIT: float = deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT: float = deg_to_rad(90.0)
 @export var ANIMATIONPLAYER: AnimationPlayer
@@ -20,8 +30,14 @@ signal kills_changed
 @export var ROLL_SPEED: int = 300
 @export var WEAPON_DATA: WeaponData = null
 
-var health: int = 100
+const MAX_HEALTH: int = 100
+
+var health: int = MAX_HEALTH
 var kills: int = 0
+
+var is_aiming: bool = false
+var is_sprinting: bool = false
+var _base_fov: float
 
 var last_firing_time: int = 0
 
@@ -47,6 +63,7 @@ var hurt_timer: Timer = Timer.new()
 func _ready() -> void:
 	Global.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	_base_fov = CAMERA_CONTROLLER.fov
 
 	enemy_killed.connect(_on_enemy_killed)
 
@@ -60,17 +77,13 @@ func _ready() -> void:
 	player_ready.emit()
 
 func _physics_process(delta: float) -> void:
+	update_aim(delta)
+	update_controller_look()
 	update_camera(delta)
 	CAMERA_CONTROLLER.rotation.z = _calc_roll(ROLL_ANGLE, ROLL_SPEED) * 2
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("exit"):
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-			get_tree().quit()
-
 	if event.is_action_pressed("attack"):
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -79,8 +92,67 @@ func _input(event: InputEvent) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	_mouse_input = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if _mouse_input:
-		_rotation_input = -event.relative.x * MOUSE_SENSITIVITY
-		_tilt_input = -event.relative.y * MOUSE_SENSITIVITY
+		var sensitivity: float = MOUSE_SENSITIVITY
+		if is_aiming:
+			sensitivity *= ADS_SENSITIVITY_MULTIPLIER
+		_rotation_input = -event.relative.x * sensitivity
+		_tilt_input = -event.relative.y * sensitivity
+
+
+# Track the aim action and zoom the FOV in for aiming or out for sprint speed
+func update_aim(delta: float) -> void:
+	is_aiming = Input.is_action_pressed("aim")
+
+	var fov_multiplier: float = 1.0
+	if is_aiming:
+		fov_multiplier = ADS_FOV_MULTIPLIER
+	elif is_sprinting:
+		fov_multiplier = SPRINT_FOV_MULTIPLIER
+
+	CAMERA_CONTROLLER.fov = lerpf(CAMERA_CONTROLLER.fov, _base_fov * fov_multiplier, ADS_ZOOM_SPEED * delta)
+
+
+# Feed right stick input into the same rotation accumulators the mouse uses
+func update_controller_look() -> void:
+	if Global.weapon_wheel_open:
+		return
+
+	var look_input: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down")
+	if look_input == Vector2.ZERO:
+		return
+
+	# Square each axis so slight off-axis drift barely registers but full tilt keeps full speed
+	look_input.x = signf(look_input.x) * look_input.x * look_input.x
+	look_input.y = signf(look_input.y) * look_input.y * look_input.y
+
+	var sensitivity: float = CONTROLLER_SENSITIVITY * _aim_assist_factor()
+	if is_aiming:
+		sensitivity *= ADS_SENSITIVITY_MULTIPLIER
+
+	_rotation_input -= look_input.x * sensitivity
+	_tilt_input -= look_input.y * sensitivity * CONTROLLER_VERTICAL_MULTIPLIER
+
+
+# Returns a look sensitivity multiplier that eases toward AIM_ASSIST_STRENGTH
+# as the camera points closer to a living enemy, giving controller sticky aim
+func _aim_assist_factor() -> float:
+	var camera_forward: Vector3 = -CAMERA_CONTROLLER.global_transform.basis.z
+	var best_angle: float = AIM_ASSIST_ANGLE
+
+	for node: Node in get_tree().get_nodes_in_group("enemy"):
+		var enemy: Enemy = node as Enemy
+		if enemy == null or enemy.dead:
+			continue
+
+		var to_enemy: Vector3 = enemy.global_position + Vector3.UP * 0.5 - CAMERA_CONTROLLER.global_position
+		if to_enemy.length() > AIM_ASSIST_RANGE:
+			continue
+
+		var angle: float = camera_forward.angle_to(to_enemy)
+		if angle < best_angle:
+			best_angle = angle
+
+	return lerpf(AIM_ASSIST_STRENGTH, 1.0, best_angle / AIM_ASSIST_ANGLE)
 
 
 func update_camera(delta: float) -> void:
@@ -158,10 +230,17 @@ func can_fire() -> bool:
 	return true
 
 
-func take_damage(damage: int) -> void:
+# Restore health up to the maximum and notify the HUD
+func heal(amount: int) -> void:
+	health = min(MAX_HEALTH, health + amount)
+	health_changed.emit()
+
+
+func take_damage(damage: int, hit_position: Vector3) -> void:
 	if !been_hurt:
 		been_hurt = true
-		health -= damage
+		health = max(0, health - damage)
+		health_changed.emit()
 
 		if !%OuchSound.playing:
 			%OuchSound.play()
@@ -169,12 +248,12 @@ func take_damage(damage: int) -> void:
 		if health <= 0:
 			player_died.emit()
 		else:
-			player_hurt.emit()
+			player_hurt.emit(hit_position)
 
 
 func _on_hurt_box_body_entered(body: Node3D) -> void:
 	if body.owner.is_in_group("enemy"):
-		take_damage(body.owner.damage)
+		take_damage(body.owner.damage, body.global_position)
 		#print("Body name: %s" % body.name)
 		#print("Body is enemy, player should take damage")
 

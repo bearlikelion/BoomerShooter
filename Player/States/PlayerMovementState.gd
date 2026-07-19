@@ -6,7 +6,11 @@ var PLAYER: Player
 var ANIMATION: AnimationPlayer
 var ARMS_VIEW: SubViewportContainer
 var FPS_ARMS: Node3D
-var WEAPON_DATA: WeaponData
+
+# Always read the equipped weapon so states never act on stale data after a swap
+var WEAPON_DATA: WeaponData:
+	get:
+		return PLAYER.WEAPON_DATA if PLAYER != null else null
 
 
 func _ready() -> void:
@@ -14,7 +18,6 @@ func _ready() -> void:
 	PLAYER = owner as Player
 	ANIMATION = PLAYER.ANIMATIONPLAYER
 	FPS_ARMS = PLAYER.FPS_ARMS
-	WEAPON_DATA = PLAYER.WEAPON_DATA
 
 
 func _process(_delta: float) -> void:

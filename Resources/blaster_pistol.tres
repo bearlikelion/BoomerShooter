@@ -8,3 +8,4 @@ weapon_name = "Blaster Pistol"
 max_ammo = 6
 max_mag = 18
 fire_rate = 333
+recoil = Vector3(0.04, 0.002, 0)

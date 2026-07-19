@@ -6,11 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://cgh1by76upwoo" path="res://Scenes/Weapons/RocketLauncher/Rocket.tscn" id="4_oeqmw"]
 
 [sub_resource type="Resource" id="Resource_juwqg"]
+resource_local_to_scene = true
 script = ExtResource("2_goncv")
 weapon_name = "Rocket Launcher"
 max_ammo = 4
 max_mag = 5
 fire_rate = 3000
+recoil = Vector3(0.15, 0.005, 0)
 
 [node name="RocketLauncher" type="Node3D"]
 script = ExtResource("1_d4okl")

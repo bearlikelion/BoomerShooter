@@ -1,8 +1,63 @@
-[gd_scene load_steps=4 format=3 uid="uid://ngwm4vqqg8my"]
+[gd_scene load_steps=8 format=3 uid="uid://ngwm4vqqg8my"]
 
 [ext_resource type="Texture2D" uid="uid://ccdl3d10pmgei" path="res://Assets/Images/1_generic_comic_book.png" id="1_kq13u"]
 [ext_resource type="Script" uid="uid://c3luc6e2jyy4o" path="res://Scripts/main_menu.gd" id="1_s1ljv"]
 [ext_resource type="Theme" uid="uid://bx4l8lfeug8r" path="res://godot_fps.tres" id="1_upbr2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 32.0
+content_margin_top = 20.0
+content_margin_right = 32.0
+content_margin_bottom = 20.0
+bg_color = Color(0.05, 0.05, 0.07, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.25, 0.15, 0.5)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+content_margin_left = 32.0
+content_margin_top = 8.0
+content_margin_right = 32.0
+content_margin_bottom = 8.0
+bg_color = Color(0.08, 0.08, 0.1, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_left = 32.0
+content_margin_top = 8.0
+content_margin_right = 32.0
+content_margin_bottom = 8.0
+bg_color = Color(0.18, 0.08, 0.06, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.25, 0.15, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_focus"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.4, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -21,6 +76,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_kq13u")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.45)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -29,50 +96,77 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 50
 
 [node name="TitleVbox" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Title" type="Label" parent="MarginContainer/TitleVbox"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("1_upbr2")
-theme_override_font_sizes/font_size = 64
-text = "Godot Open Source FPS"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 112
+text = "BOOMER SHOOTER"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MarginContainer/TitleVbox"]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_upbr2")
+theme_override_colors/font_color = Color(1, 0.75, 0.6, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 36
+text = "A Godot Open Source FPS"
 horizontal_alignment = 1
 
 [node name="Credits" type="Label" parent="MarginContainer/TitleVbox"]
 layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("1_upbr2")
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 28
 text = "Created by Bearlikelion"
 horizontal_alignment = 1
 
-[node name="StatsVbox" type="VBoxContainer" parent="MarginContainer"]
+[node name="StatsPanel" type="PanelContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="StatsLabel" type="Label" parent="MarginContainer/StatsVbox"]
+[node name="StatsVbox" type="VBoxContainer" parent="MarginContainer/StatsPanel"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatsLabel" type="Label" parent="MarginContainer/StatsPanel/StatsVbox"]
 layout_mode = 2
 theme = ExtResource("1_upbr2")
+theme_override_font_sizes/font_size = 40
 text = "Save File Stats"
+horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/StatsVbox"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/StatsPanel/StatsVbox"]
 layout_mode = 2
 
-[node name="KillStat" type="HBoxContainer" parent="MarginContainer/StatsVbox"]
+[node name="KillStat" type="HBoxContainer" parent="MarginContainer/StatsPanel/StatsVbox"]
 layout_mode = 2
 
-[node name="KillsLabel" type="Label" parent="MarginContainer/StatsVbox/KillStat"]
+[node name="KillsLabel" type="Label" parent="MarginContainer/StatsPanel/StatsVbox/KillStat"]
 layout_mode = 2
 theme = ExtResource("1_upbr2")
 text = "Kills: "
 
-[node name="KillsValue" type="Label" parent="MarginContainer/StatsVbox/KillStat"]
+[node name="KillsValue" type="Label" parent="MarginContainer/StatsPanel/StatsVbox/KillStat"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -80,15 +174,15 @@ theme = ExtResource("1_upbr2")
 text = "0"
 horizontal_alignment = 2
 
-[node name="RunStat" type="HBoxContainer" parent="MarginContainer/StatsVbox"]
+[node name="RunStat" type="HBoxContainer" parent="MarginContainer/StatsPanel/StatsVbox"]
 layout_mode = 2
 
-[node name="RunsLabel" type="Label" parent="MarginContainer/StatsVbox/RunStat"]
+[node name="RunsLabel" type="Label" parent="MarginContainer/StatsPanel/StatsVbox/RunStat"]
 layout_mode = 2
 theme = ExtResource("1_upbr2")
 text = "Runs:"
 
-[node name="RunsValue" type="Label" parent="MarginContainer/StatsVbox/RunStat"]
+[node name="RunsValue" type="Label" parent="MarginContainer/StatsPanel/StatsVbox/RunStat"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -96,16 +190,39 @@ theme = ExtResource("1_upbr2")
 text = "0"
 horizontal_alignment = 2
 
+[node name="HistorySeparator" type="HSeparator" parent="MarginContainer/StatsPanel/StatsVbox"]
+layout_mode = 2
+
+[node name="HistoryLabel" type="Label" parent="MarginContainer/StatsPanel/StatsVbox"]
+layout_mode = 2
+theme = ExtResource("1_upbr2")
+theme_override_font_sizes/font_size = 32
+text = "Recent Runs"
+horizontal_alignment = 1
+
+[node name="RunHistory" type="VBoxContainer" parent="MarginContainer/StatsPanel/StatsVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_upbr2")
+theme_override_constants/separation = 4
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_constants/separation = 20
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("1_upbr2")
 theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 text = "Play Game"
 
 [node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
@@ -113,7 +230,31 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("1_upbr2")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_focus")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 text = "Quit Game"
+
+[node name="Version" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -44.0
+offset_right = -16.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("1_upbr2")
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 24
+text = "v4.7"
+horizontal_alignment = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

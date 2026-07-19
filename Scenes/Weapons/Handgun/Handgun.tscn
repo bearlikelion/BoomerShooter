@@ -8,11 +8,13 @@
 [ext_resource type="AudioStream" uid="uid://b5gfcw8nao5dd" path="res://Assets/Sounds/SFX/621155__ktfreesound__reload-escopeta-m7.wav" id="6_87jdb"]
 
 [sub_resource type="Resource" id="Resource_v2rtf"]
+resource_local_to_scene = true
 script = ExtResource("2_gosbd")
 weapon_name = "Handgun"
 max_ammo = 6
 max_mag = 3
 fire_rate = 500
+recoil = Vector3(0.05, 0.002, 0)
 
 [node name="Handgun" type="Node3D" groups=["weapon"]]
 transform = Transform3D(-0.986771, 0.144558, 0.0733869, 0.0945756, 0.145634, 0.984808, 0.131674, 0.97872, -0.157379, 0.0247069, 0.00567973, 0.0413213)

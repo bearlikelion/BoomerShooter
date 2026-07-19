@@ -10,6 +10,7 @@ class_name SprintingPlayerState extends PlayerMovementState
 
 
 func enter(_previous_state: State) -> void:
+	PLAYER.is_sprinting = true
 	if ANIMATION.is_playing() and ANIMATION.current_animation == "JumpEnd":
 		await ANIMATION.animation_finished
 		ANIMATION.play("player_animations/Sprinting",0.5,1.0)
@@ -20,6 +21,7 @@ func enter(_previous_state: State) -> void:
 
 
 func exit() -> void:
+	PLAYER.is_sprinting = false
 	ANIMATION.speed_scale = 1.0
 	# ARMS_VIEW.is_walking = false
 	# WEAPON.weapon_bob_amount = Vector2(0,0)

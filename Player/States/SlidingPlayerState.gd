@@ -10,6 +10,7 @@ class_name SlidingPlayerState extends PlayerMovementState
 
 
 func enter(_previous_state: State) -> void:
+	PLAYER.is_sprinting = true
 	set_tilt(PLAYER._current_rotation)
 	ANIMATION.get_animation("player_animations/Sliding").track_set_key_value(4,0,PLAYER.velocity.length())
 	ANIMATION.speed_scale = 1.0
@@ -27,6 +28,10 @@ func update(delta: float) -> void:
 
 	if Input.is_action_just_pressed("reload"):
 		WEAPON_DATA.reload()
+
+
+func exit() -> void:
+	PLAYER.is_sprinting = false
 
 
 func set_tilt(player_rotation: float) -> void:

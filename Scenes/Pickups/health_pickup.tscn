@@ -1,18 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://6flrdeusbusq"]
+[gd_scene load_steps=14 format=3]
 
-[ext_resource type="Script" uid="uid://xdyyrcc1ci50" path="res://Scenes/Pickups/ammo_pickup.gd" id="1_a3d47"]
+[ext_resource type="Script" path="res://Scenes/Pickups/health_pickup.gd" id="1_hpscr"]
 [ext_resource type="PackedScene" uid="uid://p1fk80cnjov8" path="res://Assets/Models/Pickups/pickup_box.glb" id="1_phn3w"]
-[ext_resource type="Texture2D" uid="uid://birmu7gcml0d2" path="res://Assets/Models/Pickups/Textures/ammo_pickup_diffuse.png" id="2_hmx1w"]
-[ext_resource type="Texture2D" uid="uid://1n587rjnnoek" path="res://Assets/Models/Pickups/Textures/ammo_pickup_normal.png" id="3_bn26j"]
+[ext_resource type="Texture2D" uid="uid://doj5qllxmglgc" path="res://Assets/Models/Pickups/Textures/health_pickup_diffuse.png" id="2_hpdif"]
+[ext_resource type="Texture2D" uid="uid://uturu6wu7qmk" path="res://Assets/Models/Pickups/Textures/health_pickup_normal.png" id="3_hpnrm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pbost"]
 radius = 0.33
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nya8y"]
-albedo_texture = ExtResource("2_hmx1w")
+albedo_texture = ExtResource("2_hpdif")
 roughness = 0.6
 normal_enabled = true
-normal_texture = ExtResource("3_bn26j")
+normal_texture = ExtResource("3_hpnrm")
 
 [sub_resource type="Animation" id="Animation_sjxvx"]
 resource_name = "bob"
@@ -38,7 +38,7 @@ _data = {
 
 [sub_resource type="Gradient" id="Gradient_loot"]
 offsets = PackedFloat32Array(0, 0.6, 1)
-colors = PackedColorArray(1, 0.85, 0.3, 1, 1, 0.85, 0.3, 0.8, 1, 0.85, 0.3, 0)
+colors = PackedColorArray(0.3, 1, 0.4, 1, 0.3, 1, 0.4, 0.8, 0.3, 1, 0.4, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_loot"]
 gradient = SubResource("Gradient_loot")
@@ -62,8 +62,8 @@ billboard_keep_scale = true
 material = SubResource("StandardMaterial3D_loot")
 size = Vector2(0.08, 0.08)
 
-[node name="AmmoPickup" type="Area3D"]
-script = ExtResource("1_a3d47")
+[node name="HealthPickup" type="Area3D"]
+script = ExtResource("1_hpscr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

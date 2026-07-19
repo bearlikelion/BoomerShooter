@@ -1,8 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bfds1jl6qnyxw"]
+[gd_scene load_steps=20 format=3 uid="uid://bfds1jl6qnyxw"]
 
 [ext_resource type="Script" uid="uid://l8xx6s1o0lnv" path="res://Player/fps_arms.gd" id="1_d8188"]
 [ext_resource type="PackedScene" uid="uid://caf5c82qkytd0" path="res://Assets/fps_arms.glb" id="2_1o348"]
 [ext_resource type="PackedScene" uid="uid://dgmyr4l0e35ra" path="res://Scenes/Weapons/SMG/SMG.tscn" id="2_u42qr"]
+[ext_resource type="Script" path="res://Scenes/Weapons/weapon_manager.gd" id="2_wpnmgr"]
+[ext_resource type="PackedScene" uid="uid://dw023i41m8v7o" path="res://Scenes/Weapons/Handgun/Handgun.tscn" id="2_hndgn"]
+[ext_resource type="PackedScene" uid="uid://bbyv0skj0aqlb" path="res://Scenes/Weapons/Shotgun/Shotgun.tscn" id="2_shtgn"]
 [ext_resource type="Material" uid="uid://dlnmdgy8fd47u" path="res://Player/materials/arms_mat.tres" id="3_xsro0"]
 [ext_resource type="AnimationLibrary" uid="uid://dw5ae8js8d8wi" path="res://Player/custom_animations/custom_library.res" id="4_akklt"]
 
@@ -8478,8 +8481,16 @@ external_skeleton = NodePath("../FPSArms/Rig/Skeleton3D")
 
 [node name="WeaponController" type="Node3D" parent="GunAnchor"]
 transform = Transform3D(1.00001, 0, 0, 0, 0.999986, 0, 0, 0, 1, -0.0268133, 0.1451, 0.044416)
+script = ExtResource("2_wpnmgr")
+
+[node name="Handgun" parent="GunAnchor/WeaponController" instance=ExtResource("2_hndgn")]
+visible = false
 
 [node name="SMG" parent="GunAnchor/WeaponController" instance=ExtResource("2_u42qr")]
+visible = false
+
+[node name="Shotgun" parent="GunAnchor/WeaponController" instance=ExtResource("2_shtgn")]
+visible = false
 
 [node name="LoadAnchor" type="BoneAttachment3D" parent="."]
 transform = Transform3D(-0.996181, -0.0852734, -0.0187243, -0.00367515, -0.173316, 0.984859, -0.0872282, 0.981167, 0.172341, -0.112304, 0.0488916, 0.494804)

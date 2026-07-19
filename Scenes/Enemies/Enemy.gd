@@ -4,6 +4,7 @@ extends CharacterBody3D
 signal attack_player
 signal chase_player
 signal spawn_ammo(ammo_position: Vector3)
+signal spawn_health(health_position: Vector3)
 
 @export var health: int = 2
 @export var damage: int = 10
@@ -43,6 +44,8 @@ func handle_damage() -> void:
 		var roll: int = randi_range(1, 100)
 		if roll <= 20:
 			spawn_ammo.emit(position)
+		elif roll <= 35:
+			spawn_health.emit(position)
 
 		skeleton.physical_bones_start_simulation()
 
